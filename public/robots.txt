@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aria-nakamura.netlify.app/sitemap.xml
+Sitemap: https://ihsanhadhrami.netlify.app/sitemap.xml

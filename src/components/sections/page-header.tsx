@@ -22,7 +22,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="flex max-w-3xl flex-col gap-5"
+          className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center"
         >
           {eyebrow && (
             <motion.div variants={fadeUp}>
@@ -40,7 +40,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
           {description && (
             <motion.p
               variants={fadeUp}
-              className="max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+              className="mx-auto max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {description}
             </motion.p>

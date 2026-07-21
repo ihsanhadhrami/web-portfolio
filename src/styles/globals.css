@@ -175,13 +175,32 @@
     color: transparent;
   }
 
-  /* Subtle radial glow behind hero / CTA blocks */
+  /* Ambient glow behind hero / CTA blocks. Two offset blobs (violet +
+     blue) read as intentional atmosphere rather than flat empty space
+     on wide viewports, with a slow drift so it feels alive without
+     being distracting. */
   .bg-radial-glow {
-    background-image: radial-gradient(
-      60% 60% at 50% 0%,
-      oklch(0.7 0.16 285 / 12%),
-      transparent 70%
-    );
+    background-image:
+      radial-gradient(
+        50% 50% at 28% 0%,
+        oklch(0.7 0.16 285 / 20%),
+        transparent 70%
+      ),
+      radial-gradient(
+        45% 45% at 82% 12%,
+        oklch(0.68 0.14 250 / 16%),
+        transparent 70%
+      );
+    animation: glow-drift 24s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(-2%, 1.5%, 0) scale(1.06);
+    }
   }
 
   /* Faint dotted grid backdrop */

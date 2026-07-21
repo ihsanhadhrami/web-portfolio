@@ -85,13 +85,13 @@ export default function AboutPage() {
             delay={0.1}
             className="aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary/30"
           >
-            {/* Portrait placeholder — swap for a real photo. */}
-            <div className="bg-grid relative flex h-full w-full items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 via-transparent to-blue-500/20" />
-              <span className="relative font-mono text-sm tracking-widest text-muted-foreground">
-                PORTRAIT
-              </span>
-            </div>
+            <img
+              src="/profile.jpg"
+              alt={SITE.name}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
           </Reveal>
         </div>
       </Section>
