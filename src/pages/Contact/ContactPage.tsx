@@ -4,16 +4,12 @@ import { SITE, SOCIAL_LINKS } from '@/constants/site';
 import { PageHeader } from '@/components/sections/page-header';
 import { Section } from '@/components/ui/section';
 import { Icon } from '@/components/ui/icon';
+import { CopyEmail } from '@/components/ui/copy-email';
 import { Reveal } from '@/components/animations/reveal';
 import { ContactForm } from '@/components/sections/contact-form';
 
 const DETAILS = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: SITE.email,
-    href: `mailto:${SITE.email}`,
-  },
+  { icon: Mail, label: 'Email', value: SITE.email },
   { icon: MapPin, label: 'Location', value: SITE.location },
   { icon: Clock, label: 'Response time', value: 'Within 1–2 business days' },
 ] as const;
@@ -45,13 +41,8 @@ export default function ContactPage() {
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">
                       {detail.label}
                     </span>
-                    {'href' in detail && detail.href ? (
-                      <a
-                        href={detail.href}
-                        className="text-sm font-medium transition-colors hover:text-primary"
-                      >
-                        {detail.value}
-                      </a>
+                    {detail.label === 'Email' ? (
+                      <CopyEmail email={detail.value} />
                     ) : (
                       <span className="text-sm font-medium">
                         {detail.value}
