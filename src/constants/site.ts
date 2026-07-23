@@ -9,7 +9,7 @@ export const SITE = {
     'I design and build fast, accessible, and beautifully engineered digital products.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
-  email: 'growthbridge.biz@gmail.com',
+  email: 'ihsan@ihsanhadhrami.com',
   availability: 'Available for freelance & full-time work',
 } as const;
 
@@ -20,7 +20,7 @@ export const SOCIAL_LINKS = [
     href: 'https://www.linkedin.com/in/ihsan-hadhrami-ab0368287',
     icon: 'Linkedin',
   },
-  { label: 'Email', href: 'mailto:growthbridge.biz@gmail.com', icon: 'Mail' },
+  { label: 'Email', href: 'mailto:ihsan@ihsanhadhrami.com', icon: 'Mail' },
 ] as const;
 
 export const NAV_LINKS = [
