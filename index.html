@@ -15,7 +15,12 @@
       content="Ihsan Hadhrami is a web developer and digital product engineer crafting fast, accessible, and beautifully engineered digital products with React, TypeScript, and modern tooling."
     />
     <meta name="author" content="Ihsan Hadhrami" />
-    <link rel="canonical" href="https://ihsanhadhrami.com/" />
+    <!--
+      Canonical is set per-route by the <Seo> component (src/components/seo.tsx)
+      so each page gets its own correct URL. It is intentionally NOT declared
+      here: React does not dedupe <link rel="canonical">, so a static tag would
+      leave two conflicting canonicals on every inner page.
+    -->
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
