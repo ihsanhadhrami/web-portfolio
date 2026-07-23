@@ -5,7 +5,6 @@ import { FeaturedProjects } from '@/components/sections/featured-projects';
 import { ServicesSection } from '@/components/sections/services-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { TechStack } from '@/components/sections/tech-stack';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ContactCta } from '@/components/sections/contact-cta';
 
 const personJsonLd = {
@@ -30,7 +29,6 @@ export default function HomePage() {
       <ServicesSection limit={4} />
       <AboutSection />
       <TechStack />
-      <TestimonialsSection />
       <ContactCta />
     </>
   );
