@@ -32,6 +32,7 @@ export const projects: readonly Project[] = [
       'Unit tested with Vitest and jsdom to keep timer logic reliable.',
     ],
     liveUrl: 'https://productivity-timer-app.netlify.app/',
+    cover: '/og-image.png',
     accent: 'emerald',
   },
 ];
