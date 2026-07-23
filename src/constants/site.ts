@@ -7,7 +7,7 @@ export const SITE = {
   role: 'Web Developer & Digital Product Engineer',
   shortBio:
     'I design and build fast, accessible, and beautifully engineered digital products.',
-  url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.netlify.app',
+  url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
   email: 'growthbridge.biz@gmail.com',
   availability: 'Available for freelance & full-time work',
