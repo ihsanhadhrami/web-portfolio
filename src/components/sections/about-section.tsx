@@ -5,8 +5,8 @@ import { Reveal } from '@/components/animations/reveal';
 import { Button } from '@/components/ui/button';
 
 const STATS = [
-  { value: '6+', label: 'Years building for the web' },
-  { value: '40+', label: 'Products shipped' },
+  { value: '10+', label: 'Tools & frameworks' },
+  { value: '3+', label: 'Products shipped' },
   { value: '98', label: 'Avg. Lighthouse score' },
   { value: '100%', label: 'Accessibility-first' },
 ] as const;
@@ -28,9 +28,9 @@ export function AboutSection() {
               the details most people never consciously notice.
             </p>
             <p>
-              Over the past six years I've partnered with startups and product
-              teams to ship interfaces that are fast, maintainable, and
-              genuinely enjoyable to use.
+              Since I started building professionally in late 2025, I've
+              focused on shipping fast, maintainable interfaces that are
+              genuinely enjoyable to use — and I'm just getting started.
             </p>
           </div>
           <Button asChild variant="outline" size="sm" className="w-fit">

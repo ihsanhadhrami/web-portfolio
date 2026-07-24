@@ -49,10 +49,10 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
           <Reveal className="flex flex-col gap-5 text-base leading-relaxed text-muted-foreground lg:col-span-2">
             <p>
-              Hi, I'm {SITE.name.split(' ')[0]}. I've spent the last six years
-              building interfaces for startups and product teams — dashboards,
-              storefronts, design systems, and the occasional cinematic
-              marketing site.
+              Hi, I'm {SITE.name.split(' ')[0]}. I started building
+              professionally in late 2025, and in that time I've gone from
+              first commit to shipping real, production-ready products —
+              starting with Focus System, a Pomodoro-style productivity app.
             </p>
             <p>
               I started out fascinated by the seam where design meets code, and
