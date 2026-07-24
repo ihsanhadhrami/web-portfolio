@@ -56,7 +56,7 @@ test.describe('Project detail page', () => {
     await expect(liveLink).toHaveAttribute('target', '_blank');
     await expect(liveLink).toHaveAttribute(
       'href',
-      /productivity-timer-app\.netlify\.app/,
+      /productivity\.ihsanhadhrami\.com/,
     );
   });
 

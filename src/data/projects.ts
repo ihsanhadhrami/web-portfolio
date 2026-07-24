@@ -31,7 +31,7 @@ export const projects: readonly Project[] = [
       'Installable PWA with offline support via a Workbox-powered service worker.',
       'Unit tested with Vitest and jsdom to keep timer logic reliable.',
     ],
-    liveUrl: 'https://productivity-timer-app.netlify.app/',
+    liveUrl: 'https://productivity.ihsanhadhrami.com/',
     cover: '/og-image.png',
     accent: 'emerald',
   },
