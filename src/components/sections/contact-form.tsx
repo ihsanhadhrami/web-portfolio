@@ -12,7 +12,16 @@ interface FormValues {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
+
+/** Netlify Forms requires application/x-www-form-urlencoded, not JSON. */
+function encodeFormData(data: Record<string, string>): string {
+  return Object.entries(data)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+    )
+    .join('&');
+}
 
 const inputClass =
   'w-full rounded-xl border border-input bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus-visible:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
@@ -43,15 +52,20 @@ export function ContactForm() {
 
     setStatus('submitting');
     try {
-      if (ENDPOINT) {
-        const res = await fetch(ENDPOINT, {
+      if (import.meta.env.VITE_ON_NETLIFY) {
+        const res = await fetch('/', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encodeFormData({
+            'form-name': 'contact',
+            'bot-field': '',
+            ...values,
+          }),
         });
         if (!res.ok) throw new Error('Request failed');
       } else {
-        // No endpoint configured — simulate a successful send in development.
+        // Netlify Forms only exists once actually deployed to Netlify —
+        // simulate a successful send in local dev/preview/tests.
         await new Promise((resolve) => setTimeout(resolve, 900));
       }
       setStatus('success');

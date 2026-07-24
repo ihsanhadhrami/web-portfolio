@@ -50,6 +50,21 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms detects form schemas by scanning static HTML at build
+      time — it never sees the React-rendered form in src/components/
+      sections/contact-form.tsx. This hidden twin exists purely so Netlify
+      registers the "contact" form and its fields; the real form submits
+      to it via a matching fetch POST rather than a native submit.
+    -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>

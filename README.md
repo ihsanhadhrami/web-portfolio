@@ -68,6 +68,11 @@ route, related work).
 SPA redirect, and sensible security headers. Push to a connected repository or
 run `netlify deploy`.
 
-Configure the contact form by setting `VITE_CONTACT_ENDPOINT` (see
-`.env.example`). Without it, the form simulates a successful submission for
-local development.
+The contact form submits to [Netlify Forms](https://docs.netlify.com/forms/setup/) —
+no configuration needed. A hidden static form in `index.html` lets Netlify's
+build-time bot register the "contact" form schema, since it can't see the
+React-rendered version. `vite.config.ts` detects Netlify's own build
+environment (`NETLIFY=true`) so submissions only actually POST when deployed;
+locally and in tests, the form simulates a successful send. Configure email
+notifications for submissions under Site settings → Forms → Form
+notifications in the Netlify dashboard.
