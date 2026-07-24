@@ -60,11 +60,6 @@ export default function AboutPage() {
               projects are the ones where good engineering makes the design feel
               inevitable, and good design makes the engineering worth it.
             </p>
-            <p>
-              When I'm not shipping, you'll find me contributing to open source,
-              refining my own component library, or going deep on the latest in
-              the React and TypeScript ecosystem.
-            </p>
             <div className="mt-2 flex flex-wrap gap-3">
               <Button asChild size="sm">
                 <Link to="/contact">
