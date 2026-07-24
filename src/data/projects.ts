@@ -13,7 +13,7 @@ export const projects: readonly Project[] = [
     description:
       'A progressive web app for deep work: focus and break cycles paired with task tracking and session analytics, packaged as an installable, offline-capable timer.',
     category: 'Web App',
-    year: 2026,
+    year: 2025,
     role: 'Solo Developer',
     featured: true,
     tech: [
