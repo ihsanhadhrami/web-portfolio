@@ -93,6 +93,7 @@ export default function ProjectDetailsPage() {
               title={project.title}
               accent={project.accent}
               src={project.cover}
+              logo={project.logo}
             />
           </Reveal>
         </Container>

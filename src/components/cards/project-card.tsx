@@ -36,6 +36,7 @@ export function ProjectCard({
           title={project.title}
           accent={project.accent}
           src={project.cover}
+          logo={project.logo}
           className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
       </div>

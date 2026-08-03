@@ -43,7 +43,7 @@ export const projects: readonly Project[] = [
     description:
       'A production-quality marketing landing page for Léna Maison Spa, a private, appointment-only home spa serving women in the Sungai Buloh / Shah Alam area of Selangor, Malaysia. Every design and content decision is optimized around a single primary call to action: booking via WhatsApp.',
     category: 'Website',
-    year: 2025,
+    year: 2026,
     role: 'Frontend Developer',
     featured: true,
     tech: [
@@ -60,6 +60,7 @@ export const projects: readonly Project[] = [
       'Structured for easy expansion into future phases: booking system, CMS, admin dashboard.',
     ],
     liveUrl: 'https://lenaspa.netlify.app/',
+    logo: '/lena-maison-spa-logo.png',
     accent: 'rose',
   },
 ];

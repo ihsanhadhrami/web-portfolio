@@ -29,6 +29,11 @@ export interface Project {
   readonly repoUrl?: string;
   /** Path or remote URL for the cover image; optional so cards can fall back. */
   readonly cover?: string;
+  /**
+   * A small brand mark to center on the placeholder backdrop when no full
+   * screenshot exists yet. Ignored if `cover` is set.
+   */
+  readonly logo?: string;
   /** Short accent used to tint the placeholder cover, e.g. 'violet'. */
   readonly accent?: string;
 }
