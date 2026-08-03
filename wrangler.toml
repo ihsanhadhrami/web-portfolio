@@ -8,7 +8,7 @@
 # Local development with the contact Function:
 #   npm run build && npx wrangler pages dev dist
 
-name = "ihsanhadhrami-portfolio"
+name = "web-portfolio"
 compatibility_date = "2026-07-25"
 pages_build_output_dir = "dist"
 
