@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from '@/components/seo';
+import { SITE } from '@/constants/site';
 import { projects } from '@/data/projects';
 import type { ProjectCategory } from '@/types';
 import { PageHeader } from '@/components/sections/page-header';
@@ -9,6 +10,27 @@ import { ProjectCard } from '@/components/cards/project-card';
 import { cn } from '@/lib/utils';
 
 type Filter = ProjectCategory | 'All';
+
+/**
+ * schema.org has no "Portfolio" type — CollectionPage + ItemList is the
+ * real, Google-recognized vocabulary for a listing page like this one.
+ * Always lists the full catalog, independent of the client-side category
+ * filter below, since the URL (and therefore what's indexed) never
+ * changes when that filter is applied.
+ */
+const collectionJsonLd = {
+  '@type': 'CollectionPage',
+  '@id': `${SITE.url}/projects#collection`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: projects.map((project, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `${SITE.url}/projects/${project.slug}`,
+      name: project.title,
+    })),
+  },
+};
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<Filter>('All');
@@ -32,6 +54,7 @@ export default function ProjectsPage() {
         title="Projects"
         description="A collection of web applications, design systems, and websites engineered end to end."
         path="/projects"
+        jsonLd={collectionJsonLd}
       />
       <PageHeader
         eyebrow="Portfolio"

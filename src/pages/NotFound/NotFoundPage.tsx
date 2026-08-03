@@ -7,6 +7,7 @@ export default function NotFoundPage() {
       <Seo
         title="Page not found"
         description="The page you're looking for doesn't exist."
+        noindex
       />
       <NotFoundBlock
         code="404"

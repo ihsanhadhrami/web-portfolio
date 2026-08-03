@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import { Seo } from '@/components/seo';
+import { SITE } from '@/constants/site';
 import { getProjectBySlug, projects } from '@/data/projects';
 import { Section } from '@/components/ui/section';
 import { Container } from '@/components/ui/container';
@@ -18,7 +19,16 @@ export default function ProjectDetailsPage() {
   if (!project) {
     return (
       <>
-        <Seo title="Project not found" path={`/projects/${slug ?? ''}`} />
+        {/*
+          Unknown slugs are a soft 404: the SPA fallback serves this with
+          an HTTP 200, so noindex is what actually keeps it out of
+          Google's index rather than a misleading canonical.
+        */}
+        <Seo
+          title="Project not found"
+          path={`/projects/${slug ?? ''}`}
+          noindex
+        />
         <NotFoundBlock
           title="Project not found"
           description="This project may have been moved or renamed."
@@ -33,12 +43,28 @@ export default function ProjectDetailsPage() {
     .filter((p) => p.slug !== project.slug && p.category === project.category)
     .slice(0, 2);
 
+  // CreativeWork rather than a more specific type like SoftwareApplication:
+  // it's the one truthful type that covers both a web app (Focus System)
+  // and a marketing landing page (Léna Maison Spa) without overclaiming.
+  const projectJsonLd = {
+    '@type': 'CreativeWork',
+    '@id': `${SITE.url}/projects/${project.slug}#creativework`,
+    name: project.title,
+    description: project.description,
+    url: project.liveUrl ?? `${SITE.url}/projects/${project.slug}`,
+    ...(project.cover ? { image: `${SITE.url}${project.cover}` } : {}),
+    creator: { '@id': `${SITE.url}/#person` },
+    dateCreated: String(project.year),
+    keywords: project.tech.join(', '),
+  };
+
   return (
     <>
       <Seo
         title={project.title}
         description={project.description}
         path={`/projects/${project.slug}`}
+        jsonLd={projectJsonLd}
       />
 
       <Container className="pt-10">
