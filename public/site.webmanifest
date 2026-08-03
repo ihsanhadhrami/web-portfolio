@@ -1,0 +1,28 @@
+{
+  "name": "Ihsan Hadhrami — Web Developer & Digital Product Engineer",
+  "short_name": "Ihsan Hadhrami",
+  "description": "I design and build fast, accessible, and beautifully engineered digital products.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08090a",
+  "theme_color": "#08090a",
+  "icons": [
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

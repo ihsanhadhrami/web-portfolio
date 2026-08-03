@@ -32,7 +32,7 @@ export const projects: readonly Project[] = [
       'Unit tested with Vitest and jsdom to keep timer logic reliable.',
     ],
     liveUrl: 'https://productivity.ihsanhadhrami.com/',
-    cover: '/og-image.png',
+    cover: '/focus-system-cover.png',
     accent: 'emerald',
   },
   {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/seo';
 import { SITE } from '@/constants/site';
 import { PageHeader } from '@/components/sections/page-header';
@@ -66,12 +66,6 @@ export default function AboutPage() {
                   Work with me
                   <ArrowRight className="size-4" />
                 </Link>
-              </Button>
-              <Button asChild size="sm" variant="outline">
-                <a href="#" aria-label="Download résumé (PDF)">
-                  <Download className="size-4" />
-                  Résumé
-                </a>
               </Button>
             </div>
           </Reveal>

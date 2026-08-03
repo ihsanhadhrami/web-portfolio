@@ -23,18 +23,8 @@ for (const path of PAGES) {
     await page.goto(path);
     const hashLinks = await page.locator('a[href="#"]').all();
 
-    // Known issue: the About page résumé button is a placeholder
-    // (href="#") pending a real PDF. Flag it explicitly rather than
-    // silently failing, so this test documents the gap instead of
-    // just breaking.
-    if (path === '/about') {
-      expect(
-        hashLinks.length,
-        'About page résumé link is a known placeholder (href="#") — replace with a real PDF link.',
-      ).toBeGreaterThanOrEqual(0);
-      return;
-    }
-
+    // No carve-outs: the About page's placeholder résumé button has been
+    // removed, so every route must now be free of dead "#" controls.
     expect(
       hashLinks.length,
       `Found ${hashLinks.length} placeholder "#" link(s) on ${path}`,
