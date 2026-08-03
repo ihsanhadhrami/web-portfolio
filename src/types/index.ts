@@ -51,11 +51,3 @@ export interface SkillGroup {
   readonly category: string;
   readonly skills: readonly string[];
 }
-
-export interface Testimonial {
-  readonly id: string;
-  readonly quote: string;
-  readonly author: string;
-  readonly title: string;
-  readonly company: string;
-}
