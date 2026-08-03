@@ -13,15 +13,8 @@ interface FormValues {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Netlify Forms requires application/x-www-form-urlencoded, not JSON. */
-function encodeFormData(data: Record<string, string>): string {
-  return Object.entries(data)
-    .map(
-      ([key, value]) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
-    )
-    .join('&');
-}
+/** Cloudflare Pages Function backing this form (functions/api/contact.ts). */
+const CONTACT_ENDPOINT = '/api/contact';
 
 const inputClass =
   'w-full rounded-xl border border-input bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus-visible:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
@@ -34,6 +27,8 @@ export function ContactForm() {
   });
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const [status, setStatus] = useState<Status>('idle');
+  /** Honeypot. Hidden from users and assistive tech; bots fill it in. */
+  const [honeypot, setHoneypot] = useState('');
 
   function validate(): boolean {
     const next: Partial<FormValues> = {};
@@ -52,22 +47,26 @@ export function ContactForm() {
 
     setStatus('submitting');
     try {
-      if (import.meta.env.VITE_ON_NETLIFY) {
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encodeFormData({
-            'form-name': 'contact',
-            'bot-field': '',
-            ...values,
-          }),
-        });
-        if (!res.ok) throw new Error('Request failed');
-      } else {
-        // Netlify Forms only exists once actually deployed to Netlify —
-        // simulate a successful send in local dev/preview/tests.
-        await new Promise((resolve) => setTimeout(resolve, 900));
-      }
+      const res = await fetch(CONTACT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, company: honeypot }),
+      });
+
+      // Deliberately strict: the SPA catch-all rewrites unknown paths to
+      // index.html with a 200, so `res.ok` alone would report success even
+      // when no backend exists. Requiring a JSON body with ok:true means a
+      // misconfigured deploy shows a visible error instead of silently
+      // swallowing the enquiry.
+      const body: unknown = await res.json().catch(() => null);
+      const delivered =
+        res.ok &&
+        typeof body === 'object' &&
+        body !== null &&
+        (body as { ok?: unknown }).ok === true;
+
+      if (!delivered) throw new Error('Message was not delivered');
+
       setStatus('success');
       setValues({ name: '', email: '', message: '' });
     } catch {
@@ -107,6 +106,24 @@ export function ContactForm() {
       noValidate
       className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 sm:p-8"
     >
+      {/*
+        Honeypot. Hidden from sighted users via positioning (not
+        `display:none`, which some bots detect) and from assistive tech via
+        aria-hidden + tabIndex=-1, so it never reaches a real visitor.
+      */}
+      <div className="absolute left-[-9999px]" aria-hidden="true">
+        <label htmlFor="company">Company (leave blank)</label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
       <div className="flex flex-col gap-2">
         <label htmlFor="name" className="text-sm font-medium">
           Name

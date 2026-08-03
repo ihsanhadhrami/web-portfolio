@@ -1,9 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
 
 /**
- * Contact form: client-side validation, error recovery, and the
- * (simulated, since VITE_CONTACT_ENDPOINT is unset in this env)
- * submission flow.
+ * Contact form: client-side validation, error recovery, and submission.
+ *
+ * Submission is backed by a Cloudflare Pages Function
+ * (functions/api/contact.ts) which has no runtime under `vite preview`,
+ * so success-path tests stub the endpoint at the network layer. The app
+ * itself never fakes success — that is the point of `expectDelivered`.
  *
  * Field lookups are scoped to the <form> element because the contact
  * sidebar also exposes an "Email" mailto link — an unscoped getByLabel
@@ -11,6 +14,25 @@ import { test, expect, type Page } from '@playwright/test';
  */
 
 const form = (page: Page) => page.locator('form');
+
+/** Stub the contact endpoint with the real success contract. */
+async function mockContactEndpoint(page: Page): Promise<void> {
+  await page.route('**/api/contact', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true }),
+    }),
+  );
+}
+
+async function fillValidForm(page: Page): Promise<void> {
+  await form(page).getByLabel('Name', { exact: true }).fill('Jane Doe');
+  await form(page).getByLabel('Email', { exact: true }).fill('jane@example.com');
+  await form(page)
+    .getByLabel('Project details')
+    .fill('I would like to discuss a new product build.');
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/contact');
@@ -56,14 +78,23 @@ test('error clears as soon as the field is corrected', async ({ page }) => {
   await expect(page.getByText('Please enter your name.')).toBeHidden();
 });
 
-test('valid submission shows a success confirmation', async ({ page }) => {
-  await form(page).getByLabel('Name').fill('Jane Doe');
-  await form(page).getByLabel('Email').fill('jane@example.com');
-  await form(page)
-    .getByLabel('Project details')
-    .fill('I would like to discuss a new product build.');
+test('valid submission posts to the API and confirms success', async ({
+  page,
+}) => {
+  await mockContactEndpoint(page);
 
+  const request = page.waitForRequest(
+    (r) => r.url().includes('/api/contact') && r.method() === 'POST',
+  );
+  await fillValidForm(page);
   await page.getByRole('button', { name: 'Send message' }).click();
+
+  // The enquiry actually leaves the browser with the expected payload.
+  const payload = JSON.parse((await request).postData() ?? '{}');
+  expect(payload).toMatchObject({
+    name: 'Jane Doe',
+    email: 'jane@example.com',
+  });
 
   await expect(page.getByRole('status')).toContainText('Message sent', {
     timeout: 5000,
@@ -76,17 +107,55 @@ test('valid submission shows a success confirmation', async ({ page }) => {
 test('"Send another message" resets the form to a blank state', async ({
   page,
 }) => {
-  await form(page).getByLabel('Name').fill('Jane Doe');
-  await form(page).getByLabel('Email').fill('jane@example.com');
-  await form(page)
-    .getByLabel('Project details')
-    .fill('I would like to discuss a new product build.');
+  await mockContactEndpoint(page);
+  await fillValidForm(page);
   await page.getByRole('button', { name: 'Send message' }).click();
   await expect(page.getByRole('status')).toContainText('Message sent');
 
   await page.getByRole('button', { name: 'Send another message' }).click();
-  await expect(form(page).getByLabel('Name')).toHaveValue('');
+  await expect(form(page).getByLabel('Name', { exact: true })).toHaveValue('');
   await expect(
     page.getByRole('button', { name: 'Send message' }),
   ).toBeVisible();
+});
+
+/*
+ * Regression guard for a silent data-loss bug: the SPA catch-all rewrites
+ * unknown paths to index.html with a 200, so a missing/misconfigured
+ * backend returns "success" at the HTTP level. The form must treat that
+ * as a failure rather than telling the visitor their message was sent.
+ */
+test('treats an HTML 200 (SPA fallback) as failure, not success', async ({
+  page,
+}) => {
+  await page.route('**/api/contact', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'text/html',
+      body: '<!doctype html><title>app shell</title>',
+    }),
+  );
+
+  await fillValidForm(page);
+  await page.getByRole('button', { name: 'Send message' }).click();
+
+  await expect(page.getByRole('alert')).toContainText(/something went wrong/i);
+  await expect(page.getByText('Message sent')).toHaveCount(0);
+});
+
+test('surfaces a visible error when the API rejects the request', async ({
+  page,
+}) => {
+  await page.route('**/api/contact', (route) =>
+    route.fulfill({
+      status: 500,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'nope' }),
+    }),
+  );
+
+  await fillValidForm(page);
+  await page.getByRole('button', { name: 'Send message' }).click();
+
+  await expect(page.getByRole('alert')).toContainText(/something went wrong/i);
 });
