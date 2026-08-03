@@ -10,8 +10,13 @@ interface SeoProps {
 }
 
 /**
- * Per-page document metadata. Relies on React 19 hoisting `<title>` and
- * `<meta>` tags rendered anywhere in the tree into `<head>`.
+ * Per-route document metadata, hoisted into <head> by React 19.
+ *
+ * Owns exactly three things: <title>, the meta description, and the
+ * canonical link. Open Graph and Twitter tags are deliberately NOT
+ * rendered here — they live in index.html, because social scrapers do not execute
+ * JavaScript and would never see a React-rendered copy. Emitting them in
+ * both places previously left two conflicting tags on every page.
  */
 export function Seo({ title, description, path = '', jsonLd }: SeoProps) {
   const fullTitle = title
@@ -25,12 +30,6 @@ export function Seo({ title, description, path = '', jsonLd }: SeoProps) {
       <title>{fullTitle}</title>
       <meta name="description" content={desc} />
       <link rel="canonical" href={canonical} />
-
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={desc} />
-      <meta property="og:url" content={canonical} />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={desc} />
 
       {jsonLd && (
         <script

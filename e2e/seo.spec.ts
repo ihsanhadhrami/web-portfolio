@@ -13,23 +13,52 @@ const PAGES: { path: string; titleContains: string }[] = [
   { path: '/contact', titleContains: 'Contact' },
 ];
 
+/**
+ * Every head tag that search engines and social scrapers read must appear
+ * exactly once. React does not dedupe <title>, <meta>, or <link>, so
+ * declaring a tag in BOTH index.html and the <Seo> component silently
+ * produces two conflicting copies — which is what previously happened to
+ * all seven of these. Ownership is now split (index.html owns the social
+ * tags; <Seo> owns title/description/canonical) and this locks it in.
+ */
+const SINGLETON_TAGS = [
+  'title',
+  'link[rel="canonical"]',
+  'meta[name="description"]',
+  'meta[property="og:title"]',
+  'meta[property="og:description"]',
+  'meta[property="og:url"]',
+  'meta[property="og:image"]',
+  'meta[name="twitter:card"]',
+  'meta[name="twitter:title"]',
+  'meta[name="twitter:description"]',
+  'meta[name="twitter:image"]',
+];
+
 for (const { path, titleContains } of PAGES) {
-  test(`${path} has a correct title and exactly one canonical link`, async ({
+  test(`${path} has a correct title and no duplicated head tags`, async ({
     page,
   }) => {
     await page.goto(path);
-
-    // The effective document title must be the per-page dynamic one.
-    // (A static fallback <title> also lives in index.html for no-JS
-    // scrapers; the browser resolves document.title to the dynamic
-    // one, which is what this asserts.)
     await expect(page).toHaveTitle(new RegExp(titleContains));
 
-    // Canonical is the SEO-critical one: there must be exactly one, and
-    // it must point at the real domain. React does not dedupe
-    // <link rel="canonical">, so a stray static copy would produce two
-    // conflicting canonicals — this guards against that regressing.
-    await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+    // Read from the DOM directly: Playwright locators can resolve <head>
+    // tags inconsistently, which is what let the original duplication go
+    // unnoticed for so long.
+    const counts = await page.evaluate(
+      (selectors) =>
+        Object.fromEntries(
+          selectors.map((s) => [s, document.head.querySelectorAll(s).length]),
+        ),
+      SINGLETON_TAGS,
+    );
+
+    for (const [selector, count] of Object.entries(counts)) {
+      expect(count, `${selector} should appear exactly once on ${path}`).toBe(
+        1,
+      );
+    }
+
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
       /^https:\/\/ihsanhadhrami\.com/,
@@ -86,4 +115,37 @@ test('robots.txt and sitemap.xml are reachable and reference the same domain', a
   expect(sitemap.ok()).toBeTruthy();
   const sitemapBody = await sitemap.text();
   expect(sitemapBody).toContain('<loc>https://ihsanhadhrami.com/</loc>');
+});
+
+/*
+ * Drift guard. The sitemap is generated at build time from src/data/
+ * projects.ts, but this asserts against what the site actually renders —
+ * so if a project ever ships without being indexable, this fails. The
+ * previous hand-maintained sitemap silently omitted a whole project.
+ */
+test('sitemap covers every project linked from the projects page', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/projects');
+
+  // /projects is a lazy route, so wait for the grid to actually render
+  // before enumerating links — otherwise this races the Suspense boundary.
+  const projectLinks = page.locator('a[href^="/projects/"]');
+  await expect(projectLinks.first()).toBeVisible();
+
+  const hrefs = await projectLinks.evaluateAll((links) =>
+    links.map((a) => a.getAttribute('href') ?? '').filter(Boolean),
+  );
+
+  const slugs = [...new Set(hrefs)];
+  expect(slugs.length).toBeGreaterThan(0);
+
+  const sitemapBody = await (await request.get('/sitemap.xml')).text();
+  for (const slug of slugs) {
+    expect(
+      sitemapBody,
+      `${slug} is reachable in the UI but missing from sitemap.xml`,
+    ).toContain(`<loc>https://ihsanhadhrami.com${slug}</loc>`);
+  }
 });
