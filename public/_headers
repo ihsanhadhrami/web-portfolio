@@ -1,0 +1,33 @@
+# Portable header rules. Read from the publish root by BOTH Cloudflare
+# Pages and Netlify, so the site keeps its security posture across the
+# migration instead of losing every header the moment DNS moves.
+#
+# CSP note: script-src needs 'unsafe-inline' because the JSON-LD
+# structured data on the home page is an inline <script> injected by
+# React at runtime. A static SPA has no server to mint per-request
+# nonces, and the JSON-LD content is built from SITE constants so a
+# fixed hash would break on every copy edit. Everything else is locked
+# down: no object/embed, no framing, no cross-origin form posts.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+# Content-hashed build output is safe to cache forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Root-level static assets are stable but not content-hashed, so allow
+# revalidation rather than pinning them for a year.
+/*.png
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*.jpg
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*.webmanifest
+  Cache-Control: public, max-age=86400, must-revalidate

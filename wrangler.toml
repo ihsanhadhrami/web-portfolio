@@ -1,0 +1,18 @@
+# Cloudflare Pages project configuration.
+#
+# Secrets are NOT declared here — RESEND_API_KEY must be set as an
+# encrypted environment variable in the Cloudflare dashboard
+# (Workers & Pages > project > Settings > Environment variables), or via
+# `npx wrangler pages secret put RESEND_API_KEY`. Never commit it.
+#
+# Local development with the contact Function:
+#   npm run build && npx wrangler pages dev dist
+
+name = "ihsanhadhrami-portfolio"
+compatibility_date = "2026-07-25"
+pages_build_output_dir = "dist"
+
+[vars]
+# Non-secret defaults. Override per-environment in the dashboard.
+CONTACT_TO_EMAIL = "ihsan@ihsanhadhrami.com"
+CONTACT_FROM_EMAIL = "portfolio@ihsanhadhrami.com"

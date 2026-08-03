@@ -1,25 +1,16 @@
+# Build settings only.
+#
+# Redirects and headers intentionally live in public/_redirects and
+# public/_headers instead of here: those files are understood by BOTH
+# Netlify and Cloudflare Pages, so the routing and security posture
+# survives the migration. Duplicating them here would also risk two
+# conflicting Content-Security-Policy headers on Netlify.
+#
+# This file can be deleted once DNS has fully cut over to Cloudflare.
+
 [build]
   command = "npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22"
-
-# SPA fallback — let React Router handle client-side routing.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"

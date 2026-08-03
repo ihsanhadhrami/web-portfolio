@@ -1,0 +1,9 @@
+# SPA fallback so client-side routes (/projects, /about, ...) resolve on
+# direct visits and hard refreshes instead of 404ing. Read from the
+# publish root by both Cloudflare Pages and Netlify.
+#
+# On Cloudflare Pages, Functions under /functions are matched BEFORE this
+# catch-all, so POST /api/contact reaches the contact handler rather than
+# being rewritten to index.html.
+
+/*    /index.html   200
