@@ -62,17 +62,52 @@ entirely from these files — add or edit a project in `src/data/projects.ts`
 and it appears everywhere automatically (home grid, projects page, detail
 route, related work).
 
-## Deployment (Netlify)
+## Deployment (Cloudflare Pages)
 
-`netlify.toml` is preconfigured with the build command, publish directory,
-SPA redirect, and sensible security headers. Push to a connected repository or
-run `netlify deploy`.
+Routing and headers live in `public/_redirects` and `public/_headers`, which
+are read from the publish root by **both** Cloudflare Pages and Netlify — so
+the SPA fallback and security headers survive the migration. `netlify.toml`
+retains build settings only and can be deleted once DNS has fully cut over.
 
-The contact form submits to [Netlify Forms](https://docs.netlify.com/forms/setup/) —
-no configuration needed. A hidden static form in `index.html` lets Netlify's
-build-time bot register the "contact" form schema, since it can't see the
-React-rendered version. `vite.config.ts` detects Netlify's own build
-environment (`NETLIFY=true`) so submissions only actually POST when deployed;
-locally and in tests, the form simulates a successful send. Configure email
-notifications for submissions under Site settings → Forms → Form
-notifications in the Netlify dashboard.
+Cloudflare Pages settings:
+
+| Setting              | Value           |
+| -------------------- | --------------- |
+| Build command        | `npm run build` |
+| Build output         | `dist`          |
+| Node version         | `22`            |
+
+`wrangler.toml` documents the same configuration for
+`npx wrangler pages dev dist`.
+
+### Contact form
+
+Submissions are handled by a Cloudflare Pages Function at
+`functions/api/contact.ts`, which relays the message through
+[Resend](https://resend.com). This replaces Netlify Forms, which has no
+Cloudflare equivalent.
+
+Required environment variables (Workers & Pages → project → Settings →
+Environment variables):
+
+| Variable             | Notes                                          |
+| -------------------- | ---------------------------------------------- |
+| `RESEND_API_KEY`     | **Encrypted.** Never commit it.                 |
+| `CONTACT_TO_EMAIL`   | Inbox that receives enquiries.                  |
+| `CONTACT_FROM_EMAIL` | Must be on a domain verified in Resend.         |
+
+The form **never reports success unless the API confirms delivery** — it
+requires a JSON `{ ok: true }` response, so a missing key or misconfigured
+deploy surfaces a visible error rather than silently discarding enquiries.
+Because the Function has no runtime under `vite preview`, the E2E suite stubs
+the endpoint at the network layer rather than relying on app-level faking.
+
+### SEO ownership
+
+`index.html` owns the Open Graph and Twitter tags (social scrapers do not run
+JavaScript, so they only ever see static HTML). The `<Seo>` component owns
+`<title>`, the meta description, and the canonical link, so each route gets
+its own. Declaring a tag in both places produces two conflicting copies —
+`e2e/seo.spec.ts` asserts each appears exactly once. `sitemap.xml` is
+generated at build time from `src/data/projects.ts`, so a new project can
+never ship unindexed.
