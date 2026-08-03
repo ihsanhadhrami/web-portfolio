@@ -35,6 +35,33 @@ export const projects: readonly Project[] = [
     cover: '/og-image.png',
     accent: 'emerald',
   },
+  {
+    slug: 'lena-maison-spa',
+    title: 'Léna Maison Spa',
+    tagline:
+      'A conversion-focused landing page that turns visitors into WhatsApp bookings.',
+    description:
+      'A production-quality marketing landing page for Léna Maison Spa, a private, appointment-only home spa serving women in the Sungai Buloh / Shah Alam area of Selangor, Malaysia. Every design and content decision is optimized around a single primary call to action: booking via WhatsApp.',
+    category: 'Website',
+    year: 2025,
+    role: 'Frontend Developer',
+    featured: true,
+    tech: [
+      'Next.js 15',
+      'TypeScript',
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Framer Motion',
+    ],
+    highlights: [
+      'Single primary CTA — "Book via WhatsApp" — with a prefilled deep link, no booking backend required.',
+      'Clean, reusable component architecture built on the Next.js App Router.',
+      'Fully responsive and SEO-optimized for local search in Selangor.',
+      'Structured for easy expansion into future phases: booking system, CMS, admin dashboard.',
+    ],
+    liveUrl: 'https://lenaspa.netlify.app/',
+    accent: 'rose',
+  },
 ];
 
 /** Convenience selectors kept beside the data for reuse across views. */
