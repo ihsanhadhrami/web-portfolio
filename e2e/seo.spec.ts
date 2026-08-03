@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 /**
  * Per-page document metadata: unique titles, canonical links pointing
@@ -87,20 +87,98 @@ test('static head tags reference the real production domain', async ({
   await expect(twitterCard).toHaveAttribute('content', 'summary_large_image');
 });
 
-test('home page ships a Person JSON-LD block with a matching URL', async ({
+/** Fetches and parses the one JSON-LD script on the current page as a @graph. */
+async function getJsonLdGraph(page: Page): Promise<Record<string, unknown>[]> {
+  const script = page.locator('script[type="application/ld+json"]');
+  await expect(script).toHaveCount(1);
+  const raw = await script.textContent();
+  expect(raw).toBeTruthy();
+  const parsed = JSON.parse(raw ?? '{}');
+  expect(parsed['@context']).toBe('https://schema.org');
+  return parsed['@graph'];
+}
+
+function findNode(
+  graph: Record<string, unknown>[],
+  type: string,
+): Record<string, unknown> | undefined {
+  return graph.find((node) => node['@type'] === type);
+}
+
+test('home page ships WebSite, Person, ProfessionalService, and WebPage nodes', async ({
   page,
 }) => {
   await page.goto('/');
-  const script = page.locator('script[type="application/ld+json"]');
-  await expect(script).toHaveCount(1);
+  const graph = await getJsonLdGraph(page);
 
-  const raw = await script.textContent();
-  expect(raw).toBeTruthy();
-  const json = JSON.parse(raw ?? '{}');
+  const person = findNode(graph, 'Person');
+  expect(person?.name).toBe('Ihsan Hadhrami');
+  expect(person?.url).toMatch(/^https:\/\/ihsanhadhrami\.com/);
+  expect(person?.['@id']).toBe('https://ihsanhadhrami.com/#person');
 
-  expect(json['@type']).toBe('Person');
-  expect(json.url).toMatch(/^https:\/\/ihsanhadhrami\.com/);
-  expect(json.name).toBe('Ihsan Hadhrami');
+  const website = findNode(graph, 'WebSite');
+  expect(website?.url).toBe('https://ihsanhadhrami.com');
+  expect(website?.publisher).toEqual({
+    '@id': 'https://ihsanhadhrami.com/#person',
+  });
+
+  const service = findNode(graph, 'ProfessionalService');
+  expect(service?.provider).toEqual({
+    '@id': 'https://ihsanhadhrami.com/#person',
+  });
+  // No fabricated business data — see src/pages/Home/HomePage.tsx.
+  expect(service).not.toHaveProperty('aggregateRating');
+  expect(service).not.toHaveProperty('review');
+  expect(service).not.toHaveProperty('address');
+  expect(Array.isArray(service?.makesOffer)).toBe(true);
+  expect((service?.makesOffer as unknown[]).length).toBeGreaterThan(0);
+
+  expect(findNode(graph, 'WebPage')?.url).toBe('https://ihsanhadhrami.com/');
+});
+
+test('projects page ships a CollectionPage listing every project', async ({
+  page,
+}) => {
+  await page.goto('/projects');
+  const graph = await getJsonLdGraph(page);
+
+  const collection = findNode(graph, 'CollectionPage');
+  const itemList = collection?.mainEntity as
+    | { itemListElement: { url: string }[] }
+    | undefined;
+  expect(itemList?.itemListElement.length).toBeGreaterThan(0);
+  expect(
+    itemList?.itemListElement.every((item) =>
+      item.url.startsWith('https://ihsanhadhrami.com/projects/'),
+    ),
+  ).toBe(true);
+});
+
+test('a project detail page ships a CreativeWork node', async ({ page }) => {
+  await page.goto('/projects/focus-system');
+  const graph = await getJsonLdGraph(page);
+
+  const work = findNode(graph, 'CreativeWork');
+  expect(work?.name).toBe('Focus System');
+  expect(work?.creator).toEqual({
+    '@id': 'https://ihsanhadhrami.com/#person',
+  });
+});
+
+test('soft-404 routes are noindex with no misleading canonical or JSON-LD', async ({
+  page,
+}) => {
+  for (const path of ['/this-route-does-not-exist', '/projects/nonexistent']) {
+    await page.goto(path);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'noindex, nofollow',
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(
+      0,
+    );
+  }
 });
 
 test('robots.txt and sitemap.xml are reachable and reference the same domain', async ({
