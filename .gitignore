@@ -28,6 +28,10 @@ dist-ssr
 .env.*
 !.env.example
 
+# Cloudflare local dev: .dev.vars holds real secrets, .wrangler is cache
+.dev.vars
+.wrangler/
+
 # Playwright
 /test-results/
 /playwright-report/

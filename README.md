@@ -64,21 +64,27 @@ route, related work).
 
 ## Deployment (Cloudflare Pages)
 
-Routing and headers live in `public/_redirects` and `public/_headers`, which
-are read from the publish root by **both** Cloudflare Pages and Netlify — so
-the SPA fallback and security headers survive the migration. `netlify.toml`
-retains build settings only and can be deleted once DNS has fully cut over.
-
-Cloudflare Pages settings:
+Deployed straight from GitHub by Cloudflare's standard build pipeline. All
+configuration lives in the dashboard:
 
 | Setting              | Value           |
 | -------------------- | --------------- |
 | Build command        | `npm run build` |
 | Build output         | `dist`          |
+| Root directory       | `/`             |
 | Node version         | `22`            |
 
-`wrangler.toml` documents the same configuration for
-`npx wrangler pages dev dist`.
+There is deliberately **no `wrangler.toml`**. The project has zero bindings,
+so the file held nothing the dashboard does not already own — and its mere
+presence makes Pages ignore the dashboard's environment variables and
+secrets, which silently breaks the contact form. Add one only if a real
+binding (KV, D1, R2, Durable Object) is ever introduced, and migrate every
+dashboard value into it at the same time.
+
+Routing and headers live in `public/_redirects` and `public/_headers`, which
+are read from the publish root by **both** Cloudflare Pages and Netlify — so
+the SPA fallback and security headers survive the migration. `netlify.toml`
+retains build settings only and can be deleted once DNS has fully cut over.
 
 ### Contact form
 
@@ -95,6 +101,10 @@ Environment variables):
 | `RESEND_API_KEY`     | **Encrypted.** Never commit it.                 |
 | `CONTACT_TO_EMAIL`   | Inbox that receives enquiries.                  |
 | `CONTACT_FROM_EMAIL` | Must be on a domain verified in Resend.         |
+
+Set all three in the dashboard, marking `RESEND_API_KEY` as **encrypted**. To
+exercise the Function locally, put the same three in a `.dev.vars` file
+(gitignored) and run `npm run build && npx wrangler pages dev dist`.
 
 The form **never reports success unless the API confirms delivery** — it
 requires a JSON `{ ok: true }` response, so a missing key or misconfigured
