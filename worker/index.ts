@@ -1,8 +1,16 @@
 /**
- * Cloudflare Pages Function backing the contact form.
+ * Worker entry point.
  *
- * Replaces Netlify Forms, which has no Cloudflare equivalent. The Resend
- * API key stays server-side here — it is never shipped to the browser.
+ * Ported verbatim from the Pages Function that previously lived at
+ * functions/api/contact.ts. Pages Functions (file-based `onRequestPost`
+ * handlers) are not supported on Workers, so the same logic is reached
+ * through a single `fetch` handler instead. The request/response
+ * contract is unchanged, so the client in
+ * src/components/sections/contact-form.tsx needed no edits.
+ *
+ * Routing: wrangler.jsonc sets `run_worker_first: ["/api/*"]`, so only
+ * /api/* reaches this code. Every other path is served from static
+ * assets, falling back to index.html for client-side routes.
  *
  * Contract: POST JSON { name, email, message, company? } and receive
  * JSON { ok: true } on success, or { ok: false, error } with a non-2xx
@@ -12,7 +20,7 @@
  */
 
 interface Env {
-  /** Resend API key. Set as an encrypted env var; never commit it. */
+  /** Resend API key. Set with `wrangler secret put`; never commit it. */
   RESEND_API_KEY?: string;
   /** Inbox that receives enquiries. */
   CONTACT_TO_EMAIL?: string;
@@ -67,7 +75,7 @@ function validate(
   return { ok: true, data: { name, email, message } };
 }
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+async function handleContact(request: Request, env: Env): Promise<Response> {
   let raw: unknown;
   try {
     raw = await request.json();
@@ -125,4 +133,22 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   return json({ ok: true }, 200);
-};
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/contact') {
+      // The Pages Function only ever exported onRequestPost, so anything
+      // other than POST was a 405 there too.
+      return request.method === 'POST'
+        ? handleContact(request, env)
+        : json({ ok: false, error: 'Method not allowed.' }, 405);
+    }
+
+    // Only /api/* is routed here, so this is an unknown API path — not a
+    // page. Returning JSON keeps the contract consistent for callers.
+    return json({ ok: false, error: 'Not found.' }, 404);
+  },
+} satisfies ExportedHandler<Env>;
