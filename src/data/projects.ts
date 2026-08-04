@@ -63,6 +63,70 @@ export const projects: readonly Project[] = [
     logo: '/lena-maison-spa-logo.png',
     accent: 'rose',
   },
+  {
+    slug: 'job-listings-scraper',
+    title: 'Job Listings Scraper',
+    tagline:
+      'A Selenium scraper that collapses hours of manual job hunting into one spreadsheet.',
+    description:
+      'A Python web scraping tool that automatically collects job listings from job boards such as Indeed Malaysia and exports them to a structured Excel file. Built for job seekers who want their search in one place, and for recruiters and analysts doing salary benchmarking, competitive intelligence, and market trend analysis at scale.',
+    category: 'Automation',
+    year: 2026,
+    role: 'Solo Developer',
+    featured: false,
+    tech: ['Python', 'Selenium', 'Pandas', 'openpyxl'],
+    highlights: [
+      'Turns a 2–3 hour manual search into a run that finishes in minutes.',
+      'Exports timestamped Excel files capturing job title, company, location, salary, source, and collection time.',
+      'Defensive scraping: handles network faults and missing page elements, and always releases browser resources.',
+      'Configuration-driven design with file logging for audit trails.',
+    ],
+    repoUrl: 'https://github.com/ihsanhadhrami/web_scraping_python',
+    accent: 'blue',
+  },
+  {
+    slug: 'image-automation-engine',
+    title: 'Image Automation Engine',
+    tagline:
+      'Batch image processing that applies Lightroom-style edits consistently at scale.',
+    description:
+      'A batch image processing engine that applies iPhone/Lightroom-style adjustments — exposure, contrast, saturation, highlights, shadows, and sharpness — across entire folders of images. Built for automation, consistency, and production readiness rather than manual one-by-one editing, with e-commerce product shots, marketing assets, and web image optimization as the target workloads.',
+    category: 'Automation',
+    year: 2026,
+    role: 'Solo Developer',
+    featured: false,
+    tech: ['Python', 'Pillow', 'NumPy'],
+    highlights: [
+      'Non-destructive sequential pipeline: resize → adjustments → watermark → optimized output.',
+      'Gamma-based highlight and shadow recovery gives natural tone mapping without harsh clipping.',
+      'Config-driven adjustment values, normalized to prevent over-processing and visual artifacts.',
+      'Fault-tolerant batch — a single failed image is logged and never stops the run.',
+    ],
+    repoUrl: 'https://github.com/ihsanhadhrami/Image_Automation_Tool-Python',
+    accent: 'amber',
+  },
+  {
+    slug: 'ai-business-reports',
+    title: 'AI Business Report Generator',
+    tagline:
+      'CSV in, scheduled HTML performance report out — with optional AI-written insights.',
+    description:
+      'A Python automation tool that turns raw CSV business data into a structured HTML performance report. It validates the data, calculates KPIs, writes the insight copy, and delivers the report over SMTP on a schedule. It runs fully offline with deterministic local insights by default, and can optionally generate AI commentary through OpenRouter or a locally cached Hugging Face model.',
+    category: 'Automation',
+    year: 2026,
+    role: 'Solo Developer',
+    featured: false,
+    tech: ['Python', 'OpenRouter API', 'Hugging Face', 'SMTP', 'pytest'],
+    highlights: [
+      'Validates CSV input and fails fast on invalid dates or non-numeric metrics before a report ever goes out.',
+      'Calculates KPIs across revenue, sales, customer count, orders, returns, and satisfaction.',
+      'AI insights are opt-in: OpenRouter or a cached local model when enabled, deterministic local text when not.',
+      'Dry-run mode renders the full HTML report while skipping SMTP, making every run safe to test.',
+      'Ships a connectivity diagnostic for OpenRouter that never prints the API key value.',
+    ],
+    repoUrl: 'https://github.com/ihsanhadhrami/ai-powered-business-reports',
+    accent: 'cyan',
+  },
 ];
 
 /** Convenience selectors kept beside the data for reuse across views. */

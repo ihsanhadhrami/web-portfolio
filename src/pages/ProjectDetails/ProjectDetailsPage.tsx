@@ -44,8 +44,9 @@ export default function ProjectDetailsPage() {
     .slice(0, 2);
 
   // CreativeWork rather than a more specific type like SoftwareApplication:
-  // it's the one truthful type that covers both a web app (Focus System)
-  // and a marketing landing page (Léna Maison Spa) without overclaiming.
+  // it's the one truthful type that covers everything in the catalog — web
+  // apps, marketing landing pages, and CLI automation tools — without
+  // overclaiming for any of them.
   const projectJsonLd = {
     '@type': 'CreativeWork',
     '@id': `${SITE.url}/projects/${project.slug}#creativework`,

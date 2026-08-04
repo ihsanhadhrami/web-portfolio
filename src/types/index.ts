@@ -5,7 +5,12 @@
  */
 
 export type ProjectCategory =
-  'Web App' | 'Website' | 'Design System' | 'Mobile' | 'Open Source';
+  | 'Web App'
+  | 'Website'
+  | 'Automation'
+  | 'Design System'
+  | 'Mobile'
+  | 'Open Source';
 
 export interface ProjectLink {
   readonly label: string;
