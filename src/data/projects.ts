@@ -125,6 +125,7 @@ export const projects: readonly Project[] = [
       'Ships a connectivity diagnostic for OpenRouter that never prints the API key value.',
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/ai-powered-business-reports',
+    liveUrl: 'https://aibusinessreports.ihsanhadhrami.com/',
     cover: '/ai-business-reports-cover.png',
     accent: 'cyan',
   },
