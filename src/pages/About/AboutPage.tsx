@@ -42,7 +42,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="I build for the web, obsessively."
-        description="A web developer and design engineer who treats how something works and how it feels as the same problem."
+        description="A web developer and automation engineer who treats how something works and how it feels as the same problem."
       />
 
       <Section>

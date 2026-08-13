@@ -18,7 +18,7 @@ export function AboutSection() {
         <Reveal className="flex flex-col gap-6">
           <span className="text-sm font-medium text-primary">About me</span>
           <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Engineering and design, treated as one discipline.
+            Engineering, design, and automation, treated as one discipline.
           </h2>
           <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
             <p>
@@ -29,8 +29,9 @@ export function AboutSection() {
             </p>
             <p>
               Since I started building professionally in late 2025, I've
-              focused on shipping fast, maintainable interfaces that are
-              genuinely enjoyable to use — and I'm just getting started.
+              focused on shipping fast, maintainable interfaces and automation
+              tools that turn hours of manual work into a single command — and
+              I'm just getting started.
             </p>
           </div>
           <Button asChild variant="outline" size="sm" className="w-fit">
