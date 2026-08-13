@@ -4,7 +4,7 @@
  */
 export const SITE = {
   name: 'Ihsan Hadhrami',
-  role: 'Web Developer & Digital Product Engineer',
+  role: 'Web Developer & Automation Engineer',
   shortBio:
     'I design and build fast, accessible, and beautifully engineered digital products.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',

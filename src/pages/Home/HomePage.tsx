@@ -50,7 +50,7 @@ const websiteJsonLd = {
 const professionalServiceJsonLd = {
   '@type': 'ProfessionalService',
   '@id': SERVICE_ID,
-  name: `${SITE.name} — Web Development & Digital Product Engineering`,
+  name: `${SITE.name} — Web Development & Automation Engineering`,
   description: SITE.shortBio,
   url: `${SITE.url}/services`,
   image: `${SITE.url}/og-image.png`,
