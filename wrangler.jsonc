@@ -29,6 +29,6 @@
   //   npx wrangler secret put RESEND_API_KEY
   "vars": {
     "CONTACT_TO_EMAIL": "ihsan@ihsanhadhrami.com",
-    "CONTACT_FROM_EMAIL": "portfolio@ihsanhadhrami.com"
+    "CONTACT_FROM_EMAIL": "hello@ihsanhadhrami.com"
   }
 }
