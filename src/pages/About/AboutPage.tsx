@@ -36,7 +36,7 @@ export default function AboutPage() {
     <>
       <Seo
         title="About"
-        description={`${SITE.name} is a web developer and digital product engineer focused on craft, architecture, and accessibility.`}
+        description={`${SITE.name} is a web developer and automation engineer focused on craft, architecture, and accessibility.`}
         path="/about"
       />
       <PageHeader

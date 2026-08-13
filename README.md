@@ -1,7 +1,7 @@
 # Portfolio v2
 
-A production-ready personal portfolio for a modern web developer and digital
-product engineer. Built with a dark-first, minimal aesthetic and a
+A production-ready personal portfolio for a modern web developer and
+automation engineer. Built with a dark-first, minimal aesthetic and a
 data-driven architecture so content is trivial to maintain.
 
 ## Tech stack

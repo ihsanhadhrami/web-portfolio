@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Personal portfolio of a modern web developer and digital product engineer.",
+  "description": "Personal portfolio of a modern web developer and automation engineer.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
