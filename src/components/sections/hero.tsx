@@ -49,8 +49,8 @@ export function Hero() {
             className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
             I'm {SITE.name.split(' ')[0]}, a web developer and automation
-            engineer. I turn ambitious ideas into fast, accessible, and
-            beautifully engineered interfaces.
+            engineer. I turn ambitious ideas into fast, accessible interfaces
+            and reliable automated systems that save hours of manual work.
           </motion.p>
 
           <motion.div
