@@ -12,7 +12,10 @@ test('clicking the contact email copies it and confirms', async ({
   browserName,
 }) => {
   // Clipboard permissions are a Chromium concept; skip elsewhere.
-  test.skip(browserName !== 'chromium', 'Clipboard API is Chromium-gated here.');
+  test.skip(
+    browserName !== 'chromium',
+    'Clipboard API is Chromium-gated here.',
+  );
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
   await page.goto('/contact');

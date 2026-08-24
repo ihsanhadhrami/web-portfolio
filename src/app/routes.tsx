@@ -11,6 +11,7 @@ const ProjectsPage = lazy(() => import('@/pages/Projects/ProjectsPage'));
 const ProjectDetailsPage = lazy(
   () => import('@/pages/ProjectDetails/ProjectDetailsPage'),
 );
+const ArticlesPage = lazy(() => import('@/pages/Articles/ArticlesPage'));
 const ServicesPage = lazy(() => import('@/pages/Services/ServicesPage'));
 const AboutPage = lazy(() => import('@/pages/About/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/Contact/ContactPage'));
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'projects', element: <ProjectsPage /> },
       { path: 'projects/:slug', element: <ProjectDetailsPage /> },
+      { path: 'articles', element: <ArticlesPage /> },
       { path: 'services', element: <ServicesPage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },

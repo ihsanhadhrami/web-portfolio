@@ -50,9 +50,9 @@ export default function AboutPage() {
           <Reveal className="flex flex-col gap-5 text-base leading-relaxed text-muted-foreground lg:col-span-2">
             <p>
               Hi, I'm {SITE.name.split(' ')[0]}. I started building
-              professionally in late 2025, and in that time I've gone from
-              first commit to shipping real, production-ready products —
-              starting with Focus System, a Pomodoro-style productivity app.
+              professionally in late 2025, and in that time I've gone from first
+              commit to shipping real, production-ready products — starting with
+              Focus System, a Pomodoro-style productivity app.
             </p>
             <p>
               I started out fascinated by the seam where design meets code, and

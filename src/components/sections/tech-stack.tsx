@@ -1,4 +1,5 @@
 import { skillGroups } from '@/data/skills';
+import { BrandIcon } from '@/components/ui/brand-icon';
 import { Section } from '@/components/ui/section';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Reveal } from '@/components/animations/reveal';
@@ -25,10 +26,16 @@ export function TechStack() {
             <ul className="flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <li
-                  key={skill}
-                  className="rounded-lg border border-border bg-secondary/40 px-3 py-1.5 text-sm text-foreground/90"
+                  key={skill.name}
+                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/40 px-3 py-1.5 text-sm text-foreground/90"
                 >
-                  {skill}
+                  {skill.brand && (
+                    <BrandIcon
+                      slug={skill.brand}
+                      className="size-3.5 text-muted-foreground"
+                    />
+                  )}
+                  {skill.name}
                 </li>
               ))}
             </ul>

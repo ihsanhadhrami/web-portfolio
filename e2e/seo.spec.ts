@@ -8,6 +8,7 @@ import { test, expect, type Page } from '@playwright/test';
 const PAGES: { path: string; titleContains: string }[] = [
   { path: '/', titleContains: 'Ihsan Hadhrami' },
   { path: '/projects', titleContains: 'Projects' },
+  { path: '/articles', titleContains: 'Articles' },
   { path: '/services', titleContains: 'Services' },
   { path: '/about', titleContains: 'About' },
   { path: '/contact', titleContains: 'Contact' },
@@ -41,6 +42,11 @@ for (const { path, titleContains } of PAGES) {
   }) => {
     await page.goto(path);
     await expect(page).toHaveTitle(new RegExp(titleContains));
+
+    // Wait for the lazy route chunk to mount. Until it does, the head
+    // holds RouteFallback's placeholder title and none of the per-route
+    // tags below exist yet.
+    await expect(page.getByText('Loading…')).toHaveCount(0);
 
     // Read from the DOM directly: Playwright locators can resolve <head>
     // tags inconsistently, which is what let the original duplication go
@@ -144,8 +150,7 @@ test('projects page ships a CollectionPage listing every project', async ({
 
   const collection = findNode(graph, 'CollectionPage');
   const itemList = collection?.mainEntity as
-    | { itemListElement: { url: string }[] }
-    | undefined;
+    { itemListElement: { url: string }[] } | undefined;
   expect(itemList?.itemListElement.length).toBeGreaterThan(0);
   expect(
     itemList?.itemListElement.every((item) =>
@@ -175,9 +180,9 @@ test('soft-404 routes are noindex with no misleading canonical or JSON-LD', asyn
       'noindex, nofollow',
     );
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
-    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(
-      0,
-    );
+    await expect(
+      page.locator('script[type="application/ld+json"]'),
+    ).toHaveCount(0);
   }
 });
 

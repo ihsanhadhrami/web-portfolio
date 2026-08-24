@@ -76,7 +76,7 @@ export const projects: readonly Project[] = [
     featured: false,
     tech: ['Python', 'Selenium', 'Pandas', 'openpyxl'],
     highlights: [
-      'Turns a 2–3 hour manual search into a run that finishes in minutes.',
+      'Turns a 2-3 hour manual search into a run that finishes in minutes.',
       'Exports timestamped Excel files capturing job title, company, location, salary, source, and collection time.',
       'Defensive scraping: handles network faults and missing page elements, and always releases browser resources.',
       'Configuration-driven design with file logging for audit trails.',

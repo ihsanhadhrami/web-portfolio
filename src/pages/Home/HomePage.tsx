@@ -1,16 +1,33 @@
+import { useCallback, useRef } from 'react';
 import { Seo } from '@/components/seo';
-import { SITE, SOCIAL_LINKS } from '@/constants/site';
+import {
+  HOME_SECTIONS,
+  type HomeSectionId,
+  SITE,
+  SOCIAL_LINKS,
+  sectionNumber,
+} from '@/constants/site';
 import { services } from '@/data/services';
-import { Hero } from '@/components/sections/hero';
-import { FeaturedProjects } from '@/components/sections/featured-projects';
-import { ServicesSection } from '@/components/sections/services-section';
-import { AboutSection } from '@/components/sections/about-section';
-import { TechStack } from '@/components/sections/tech-stack';
-import { ContactCta } from '@/components/sections/contact-cta';
+import { useActiveSection } from '@/hooks/use-active-section';
+import { HomeNav } from '@/components/sections/home/home-nav';
+import { HeroSection } from '@/components/sections/home/hero-section';
+import { AboutSection } from '@/components/sections/home/about-section';
+import { SkillsSection } from '@/components/sections/home/skills-section';
+import { WorkSection } from '@/components/sections/home/work-section';
+import { WritingSection } from '@/components/sections/home/writing-section';
+import { ContactSection } from '@/components/sections/home/contact-section';
 
 const PERSON_ID = `${SITE.url}/#person`;
 const WEBSITE_ID = `${SITE.url}/#website`;
 const SERVICE_ID = `${SITE.url}/#service`;
+
+/** Module-level so the scroll-spy's dependency array stays stable. */
+const SECTION_IDS = HOME_SECTIONS.map((section) => section.id);
+
+/** Position label lookup, e.g. about -> "02". */
+const NUMBER_BY_ID = Object.fromEntries(
+  HOME_SECTIONS.map((section, i) => [section.id, sectionNumber(i)]),
+) as Record<HomeSectionId, string>;
 
 /** Real profile links only — excludes the mailto: entry, which isn't a profile URL. */
 const profileUrls = SOCIAL_LINKS.filter((link) =>
@@ -67,19 +84,44 @@ const professionalServiceJsonLd = {
   })),
 };
 
+/**
+ * The homepage scrolls inside its own snap container rather than on the
+ * document, so only this route gets the one-section-per-viewport pacing and
+ * every other route keeps normal document scrolling.
+ */
 export default function HomePage() {
+  const containerRef = useRef<HTMLElement>(null);
+  const activeId = useActiveSection(SECTION_IDS, containerRef);
+
+  const goToSection = useCallback((id: string) => {
+    // No `behavior` argument on purpose: the container sets
+    // `scroll-behavior: smooth` in CSS and drops it under
+    // `prefers-reduced-motion`, so the preference is honored here for free.
+    containerRef.current?.querySelector(`#${id}`)?.scrollIntoView({
+      block: 'start',
+    });
+  }, []);
+
   return (
     <>
       <Seo
         path="/"
         jsonLd={[websiteJsonLd, personJsonLd, professionalServiceJsonLd]}
       />
-      <Hero />
-      <FeaturedProjects />
-      <ServicesSection limit={4} />
-      <AboutSection />
-      <TechStack />
-      <ContactCta />
+
+      <HomeNav activeId={activeId} onNavigate={goToSection} />
+
+      {/* The scroll container is the main landmark itself: nesting it
+          inside another <main> would put the section nav's <header>
+          inside main, where it stops being a banner. */}
+      <main id="main" ref={containerRef} className="snap-container">
+        <HeroSection onNavigate={goToSection} />
+        <AboutSection number={NUMBER_BY_ID.about} label="About" />
+        <SkillsSection number={NUMBER_BY_ID.skills} label="Skills" />
+        <WorkSection number={NUMBER_BY_ID.work} label="Work" />
+        <WritingSection number={NUMBER_BY_ID.writing} label="Writing" />
+        <ContactSection number={NUMBER_BY_ID.contact} label="Contact" />
+      </main>
     </>
   );
 }

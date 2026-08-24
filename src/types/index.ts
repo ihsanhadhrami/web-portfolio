@@ -52,7 +52,42 @@ export interface Service {
   readonly deliverables: readonly string[];
 }
 
+export interface Skill {
+  readonly name: string;
+  /**
+   * simple-icons slug (e.g. 'react'), rendered from the npm package rather
+   * than their CDN so the site's `img-src 'self'` CSP stays locked down.
+   * Omitted for skills that have no brand mark, like "Arabic morphology".
+   */
+  readonly brand?: string;
+}
+
 export interface SkillGroup {
   readonly category: string;
-  readonly skills: readonly string[];
+  /** Lucide icon name for the group header, resolved via the Icon registry. */
+  readonly icon: string;
+  readonly skills: readonly Skill[];
+}
+
+/**
+ * The two tracks the writing is split across. A recruiter scanning for
+ * backend work and someone assessing Arabic NLP depth should each be able
+ * to filter straight to their track without reading the other.
+ */
+export type ArticleTrack = 'Engineering' | 'Arabic NLP';
+
+export interface Article {
+  readonly slug: string;
+  readonly title: string;
+  readonly track: ArticleTrack;
+  /** ISO date (YYYY-MM-DD), formatted for display at render time. */
+  readonly date: string;
+  readonly excerpt: string;
+  readonly readingMinutes?: number;
+  /**
+   * True while the post is an unwritten placeholder. Draft cards render
+   * as non-interactive and are excluded from the homepage preview, so
+   * nothing links to a body that does not exist yet.
+   */
+  readonly draft?: boolean;
 }

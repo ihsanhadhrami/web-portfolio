@@ -11,6 +11,7 @@ const SITE_URL = process.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com';
 const STATIC_ROUTES: ReadonlyArray<[path: string, priority: string]> = [
   ['/', '1.0'],
   ['/projects', '0.9'],
+  ['/articles', '0.8'],
   ['/services', '0.8'],
   ['/about', '0.7'],
   ['/contact', '0.6'],

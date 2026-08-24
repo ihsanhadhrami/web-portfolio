@@ -8,7 +8,15 @@ import AxeBuilder from '@axe-core/playwright';
  * keyboard/screen-reader testing, but it's a strong first pass.
  */
 
-const PAGES = ['/', '/projects', '/projects/focus-system', '/services', '/about', '/contact'];
+const PAGES = [
+  '/',
+  '/projects',
+  '/projects/focus-system',
+  '/articles',
+  '/services',
+  '/about',
+  '/contact',
+];
 
 /**
  * Scroll the full page so every scroll-triggered (`whileInView`) reveal
@@ -33,6 +41,7 @@ for (const path of PAGES) {
     page,
   }) => {
     await page.goto(path);
+    await expect(page.getByText('Loading…')).toHaveCount(0);
     await settleReveals(page);
 
     const results = await new AxeBuilder({ page })

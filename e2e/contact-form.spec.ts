@@ -28,7 +28,9 @@ async function mockContactEndpoint(page: Page): Promise<void> {
 
 async function fillValidForm(page: Page): Promise<void> {
   await form(page).getByLabel('Name', { exact: true }).fill('Jane Doe');
-  await form(page).getByLabel('Email', { exact: true }).fill('jane@example.com');
+  await form(page)
+    .getByLabel('Email', { exact: true })
+    .fill('jane@example.com');
   await form(page)
     .getByLabel('Project details')
     .fill('I would like to discuss a new product build.');

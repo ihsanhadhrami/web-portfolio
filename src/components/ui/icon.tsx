@@ -2,6 +2,7 @@ import {
   Gauge,
   Github,
   HelpCircle,
+  Languages,
   LayoutDashboard,
   Linkedin,
   type LucideIcon,
@@ -9,7 +10,9 @@ import {
   Mail,
   Palette,
   Rocket,
+  Server,
   Twitter,
+  Workflow,
 } from 'lucide-react';
 
 /**
@@ -21,8 +24,11 @@ import {
  */
 const REGISTRY: Record<string, LucideIcon> = {
   LayoutDashboard,
+  Languages,
   Palette,
   Rocket,
+  Server,
+  Workflow,
   Gauge,
   Github,
   Linkedin,

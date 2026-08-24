@@ -1,41 +1,57 @@
 import type { SkillGroup } from '@/types';
 
+/**
+ * Grouped around the two tracks the site now covers rather than a generic
+ * stack list: the first three groups speak to backend / automation / SaaS
+ * support roles, the fourth to Arabic language technology.
+ *
+ * `brand` values are simple-icons slugs. Skills with no brand mark (an
+ * area of study rather than a product) simply omit it and render as text.
+ */
 export const skillGroups: readonly SkillGroup[] = [
   {
-    category: 'Languages',
-    skills: ['TypeScript', 'JavaScript', 'HTML', 'CSS', 'SQL'],
+    category: 'Frontend',
+    icon: 'LayoutDashboard',
+    skills: [
+      { name: 'React', brand: 'react' },
+      { name: 'TypeScript', brand: 'typescript' },
+      { name: 'Next.js', brand: 'nextdotjs' },
+      { name: 'Tailwind CSS', brand: 'tailwindcss' },
+      { name: 'Framer Motion', brand: 'framer' },
+      { name: 'Vite', brand: 'vite' },
+    ],
   },
   {
-    category: 'Frameworks',
-    skills: ['React', 'Next.js', 'Remix', 'Astro', 'Node.js'],
+    category: 'Backend & APIs',
+    icon: 'Server',
+    skills: [
+      { name: 'Node.js', brand: 'nodedotjs' },
+      { name: 'Python', brand: 'python' },
+      { name: 'PostgreSQL', brand: 'postgresql' },
+      { name: 'REST APIs' },
+      { name: 'Cloudflare Workers', brand: 'cloudflare' },
+    ],
   },
   {
-    category: 'Styling & Design',
-    skills: ['Tailwind CSS', 'Framer Motion', 'Radix UI', 'shadcn/ui', 'Figma'],
+    category: 'Automation',
+    icon: 'Workflow',
+    skills: [
+      { name: 'Selenium', brand: 'selenium' },
+      { name: 'pandas', brand: 'pandas' },
+      { name: 'Pillow' },
+      { name: 'Scheduled jobs' },
+      { name: 'Email pipelines' },
+    ],
   },
   {
-    category: 'Tooling',
-    skills: ['Vite', 'Vitest', 'Playwright', 'Storybook', 'ESLint'],
+    category: 'Arabic NLP & Data',
+    icon: 'Languages',
+    skills: [
+      { name: 'Hugging Face', brand: 'huggingface' },
+      { name: 'NumPy', brand: 'numpy' },
+      { name: 'Arabic morphology' },
+      { name: 'Tokenization' },
+      { name: 'Corpus building' },
+    ],
   },
-  {
-    category: 'Platform',
-    skills: ['Netlify', 'Vercel', 'PostgreSQL', 'GraphQL', 'Git'],
-  },
-];
-
-/**
- * A flat, ordered list of the core stack, used by the marquee-style
- * tech section on the home page.
- */
-export const coreStack: readonly string[] = [
-  'React',
-  'TypeScript',
-  'Next.js',
-  'Tailwind CSS',
-  'Framer Motion',
-  'Vite',
-  'Node.js',
-  'PostgreSQL',
-  'Figma',
-  'Vercel',
 ];

@@ -4,11 +4,16 @@ import { test, expect } from '@playwright/test';
  * Core routing: every nav link resolves, the logo forces a real
  * navigation home, and unknown routes fall back to the 404 page
  * instead of a blank screen or a server 404.
+ *
+ * These exercise the global chrome, which the snap-scrolled homepage
+ * deliberately does not render (it ships its own section nav, covered in
+ * home-snap.spec). So they start from an inner route rather than '/'.
  */
 
 const NAV_ROUTES = [
   { label: 'Home', path: '/' },
   { label: 'Projects', path: '/projects' },
+  { label: 'Articles', path: '/articles' },
   { label: 'Services', path: '/services' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' },
@@ -27,7 +32,7 @@ test.describe('Primary navigation', () => {
     test(`nav link "${route.label}" navigates to ${route.path}`, async ({
       page,
     }) => {
-      await page.goto('/');
+      await page.goto('/about');
       await page
         .getByRole('navigation', { name: 'Primary' })
         .getByRole('link', { name: route.label, exact: true })
@@ -37,7 +42,7 @@ test.describe('Primary navigation', () => {
   }
 
   test('"Let\'s talk" CTA in navbar goes to /contact', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/about');
     await page
       .getByRole('navigation', { name: 'Primary' })
       .getByRole('link', { name: "Let's talk" })
@@ -65,9 +70,7 @@ test.describe('Routing fallbacks', () => {
 test.describe('Logo / brand mark', () => {
   // The logo renders in both the header and the footer, so scope to the
   // header (banner) landmark to target the primary one unambiguously.
-  test('is a real anchor to "/", not a client-side route', async ({
-    page,
-  }) => {
+  test('is a real anchor to "/", not a client-side route', async ({ page }) => {
     await page.goto('/projects');
     const logo = page
       .getByRole('banner')
@@ -92,7 +95,7 @@ test.describe('Footer', () => {
   test('renders navigation links and social links with valid hrefs', async ({
     page,
   }) => {
-    await page.goto('/');
+    await page.goto('/about');
     const footer = page.getByRole('contentinfo');
     await expect(footer).toBeVisible();
 
@@ -108,10 +111,8 @@ test.describe('Footer', () => {
     await expect(linkedin).toHaveAttribute('href', /linkedin\.com/);
   });
 
-  test('copyright line reflects the current site owner', async ({
-    page,
-  }) => {
-    await page.goto('/');
+  test('copyright line reflects the current site owner', async ({ page }) => {
+    await page.goto('/about');
     // Match the copyright line specifically (© … name), not the footer
     // logo wordmark which also contains the name.
     await expect(

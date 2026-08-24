@@ -6,7 +6,15 @@ import { test, expect, type Page } from '@playwright/test';
  * links that 404.
  */
 
-const PAGES = ['/', '/projects', '/projects/focus-system', '/services', '/about', '/contact'];
+const PAGES = [
+  '/',
+  '/projects',
+  '/projects/focus-system',
+  '/articles',
+  '/services',
+  '/about',
+  '/contact',
+];
 
 async function collectInternalHrefs(page: Page): Promise<string[]> {
   return page
@@ -54,7 +62,9 @@ test('internal links resolve without a 404 or error boundary', async ({
 
   for (const href of hrefs) {
     const response = await page.goto(href);
-    expect(response?.status(), `${href} returned an error status`).toBeLessThan(400);
+    expect(response?.status(), `${href} returned an error status`).toBeLessThan(
+      400,
+    );
     await expect(
       page.getByRole('heading', { name: 'Something went wrong' }),
     ).toHaveCount(0);

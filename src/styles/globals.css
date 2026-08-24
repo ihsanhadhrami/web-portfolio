@@ -84,8 +84,10 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
+  /* Syne carries the display voice, Manrope the reading voice. */
   --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Syne', 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* Fluid display type used by hero / section headings */
@@ -115,6 +117,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Syne carries every page-level heading so the display voice is
+     consistent across the snap homepage and the normally-scrolling
+     routes. Smaller headings opt in with the `font-display` utility. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
   }
 
   /* Consistent focus ring across interactive elements */
@@ -225,5 +235,57 @@
     .container-page {
       padding-inline: 2rem;
     }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Snap-scroll homepage                                               */
+/*                                                                     */
+/*  The homepage scrolls inside its own container rather than on the   */
+/*  document, so the rest of the site keeps normal document scrolling  */
+/*  and only `/` gets the one-section-per-viewport pacing.             */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .snap-container {
+    height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .snap-section {
+    /* `min-height` rather than `height`: if a section's content ever
+       outgrows the viewport it scrolls instead of being clipped. */
+    min-height: 100svh;
+    scroll-snap-align: start;
+    /* Stops a fast flick from skipping past a whole section, which is the
+       main way snap-scrolled sites lose people. */
+    scroll-snap-stop: always;
+  }
+
+  /*
+    Landscape phones and short desktop windows cannot fit a full section.
+    Mandatory snapping there strands the user mid-section with content
+    they cannot reach, so free scrolling is the correct fallback.
+  */
+  @media (max-height: 620px) {
+    .snap-container {
+      scroll-snap-type: none;
+    }
+
+    .snap-section {
+      min-height: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snap-container {
+      scroll-behavior: auto;
+    }
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 }

@@ -49,7 +49,9 @@ test.describe('Mobile navigation menu', () => {
   test('opens, exposes nav links, and navigates on selection', async ({
     page,
   }) => {
-    await page.goto('/');
+    // An inner route: the homepage renders its own section menu instead of
+    // the global one (see home-snap.spec).
+    await page.goto('/about');
 
     const openButton = page.getByRole('button', { name: 'Open menu' });
     await expect(openButton).toBeVisible();
@@ -67,9 +69,7 @@ test.describe('Mobile navigation menu', () => {
   test('locks body scroll while open', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Open menu' }).click();
-    const overflow = await page.evaluate(
-      () => document.body.style.overflow,
-    );
+    const overflow = await page.evaluate(() => document.body.style.overflow);
     expect(overflow).toBe('hidden');
 
     await page.getByRole('button', { name: 'Close menu' }).click();

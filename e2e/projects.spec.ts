@@ -9,16 +9,12 @@ test.describe('Projects listing page', () => {
     page,
   }) => {
     await page.goto('/projects');
-    const card = page
-      .getByRole('link', { name: /View case study/i })
-      .first();
+    const card = page.getByRole('link', { name: /View case study/i }).first();
     await expect(card).toBeVisible();
     await expect(card).toHaveAttribute('href', /\/projects\//);
   });
 
-  test('category filter tabs are present and clickable', async ({
-    page,
-  }) => {
+  test('category filter tabs are present and clickable', async ({ page }) => {
     await page.goto('/projects');
     const tablist = page.getByRole('tablist', {
       name: 'Filter projects by category',
@@ -60,9 +56,7 @@ test.describe('Project detail page', () => {
     );
   });
 
-  test('"All projects" back link returns to the listing', async ({
-    page,
-  }) => {
+  test('"All projects" back link returns to the listing', async ({ page }) => {
     await page.goto('/projects/focus-system');
     await page.getByRole('link', { name: 'All projects' }).click();
     await expect(page).toHaveURL(/\/projects$/);
