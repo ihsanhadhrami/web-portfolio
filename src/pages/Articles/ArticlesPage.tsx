@@ -2,11 +2,7 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from '@/components/seo';
 import { SITE } from '@/constants/site';
-import {
-  ARTICLE_TRACKS,
-  articlesByDate,
-  publishedArticles,
-} from '@/data/articles';
+import { ARTICLE_TRACKS, articlesByDate } from '@/data/articles';
 import type { ArticleTrack } from '@/types';
 import { PageHeader } from '@/components/sections/page-header';
 import { Section } from '@/components/ui/section';
@@ -18,19 +14,18 @@ type Filter = ArticleTrack | 'All';
 const FILTERS: readonly Filter[] = ['All', ...ARTICLE_TRACKS];
 
 /**
- * Only published posts are advertised to search engines. Drafts still
- * render on the page so the layout is reviewable, but listing a post with
- * no body behind it would be a soft-404 waiting to happen.
+ * The list mirrors what the page renders: every article here has a body,
+ * so nothing advertised to search engines can dead-end on a soft 404.
  */
 const collectionJsonLd = {
   '@type': 'CollectionPage',
   '@id': `${SITE.url}/articles#collection`,
   name: 'Articles',
-  ...(publishedArticles.length > 0
+  ...(articlesByDate.length > 0
     ? {
         mainEntity: {
           '@type': 'ItemList',
-          itemListElement: publishedArticles.map((article, index) => ({
+          itemListElement: articlesByDate.map((article, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             url: `${SITE.url}/articles/${article.slug}`,

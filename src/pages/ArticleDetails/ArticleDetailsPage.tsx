@@ -19,13 +19,13 @@ export default function ArticleDetailsPage() {
   const Body = slug ? getArticleBody(slug) : undefined;
 
   /*
-    Three ways to land here with nothing to render: an unknown slug, a
-    draft (no body written yet), and a post whose body has not been
-    registered. All three are soft 404s — the SPA fallback serves them
-    with an HTTP 200, so noindex is what actually keeps them out of the
-    index rather than a canonical pointing at an empty page.
+    Two ways to land here with nothing to render: an unknown slug, and a
+    post whose body has not been registered. Both are soft 404s — the SPA
+    fallback serves them with an HTTP 200, so noindex is what actually
+    keeps them out of the index rather than a canonical pointing at an
+    empty page.
   */
-  if (!article || article.draft || !Body) {
+  if (!article || !Body) {
     return (
       <>
         <Seo

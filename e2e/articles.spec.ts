@@ -3,10 +3,10 @@ import { test, expect } from '@playwright/test';
 /**
  * The articles index and the article detail route.
  *
- * Publishing a post has two halves: dropping the `draft` flag in
- * data/articles.ts and registering a body in content/articles. The first
- * test here is what fails if those two ever disagree, since a card that
- * links nowhere real is a soft 404 the sitemap would happily advertise.
+ * Publishing a post has two halves: listing it in data/articles.ts and
+ * registering a body in content/articles. The first test here is what
+ * fails if those two ever disagree, since a card that links nowhere real
+ * is a soft 404 the sitemap would happily advertise.
  */
 
 test.describe('Articles index', () => {
@@ -31,22 +31,14 @@ test.describe('Articles index', () => {
     }
   });
 
-  test('draft cards are marked and link nowhere', async ({ page }) => {
+  test('every card on the index is a link to its post', async ({ page }) => {
     await page.goto('/articles');
 
-    const drafts = page.getByText(/^draft$/i);
-    // count() does not retry, so wait for the lazy route to mount first.
-    await expect(drafts.first()).toBeVisible();
-    const draftCount = await drafts.count();
-    expect(draftCount).toBeGreaterThan(0);
-
-    // A draft marker must never sit inside an anchor.
-    for (let i = 0; i < draftCount; i += 1) {
-      const insideLink = await drafts
-        .nth(i)
-        .evaluate((el) => el.closest('a') !== null);
-      expect(insideLink, 'draft cards must not be links').toBe(false);
-    }
+    const main = page.getByRole('main');
+    await expect(main.locator('a[href^="/articles/"]').first()).toBeVisible();
+    // Placeholder cards rendered as plain <article> blocks instead of
+    // links. Nothing on the index may advertise a post with no body.
+    await expect(main.locator('article')).toHaveCount(0);
   });
 
   test('the track filter narrows the list', async ({ page }) => {

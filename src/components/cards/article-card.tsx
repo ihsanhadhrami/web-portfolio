@@ -50,19 +50,6 @@ export function ArticleCard({ article, className }: ArticleCardProps) {
   const shell =
     'flex h-full flex-col gap-3 rounded-2xl border border-border bg-card p-5 sm:p-6';
 
-  // A draft has no body to link to, so it renders as plain content rather
-  // than a link that would dead-end on a route that does not exist.
-  if (article.draft) {
-    return (
-      <article className={cn(shell, className)}>
-        {body}
-        <p className="mt-auto pt-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Draft
-        </p>
-      </article>
-    );
-  }
-
   return (
     <Link
       to={`/articles/${article.slug}`}

@@ -6,25 +6,11 @@ export const ARTICLE_TRACKS: readonly ArticleTrack[] = [
 ];
 
 /**
- * Entries still marked `draft: true` are placeholder scaffolding, kept so the
- * index layout and track filter stay reviewable while the backlog fills in.
- *
- * To publish one: write its body under `content/articles/`, register it in
- * that directory's index, and drop the `draft` flag. Drafts render on the
- * index (visibly marked) but link nowhere and never reach the sitemap, so
- * nothing advertises a post with no body behind it.
+ * Every entry here is a written post with a body registered in
+ * `content/articles/`. Nothing is listed before its prose exists, so a card
+ * on the index always leads somewhere real.
  */
 export const articles: readonly Article[] = [
-  {
-    slug: 'scraping-job-boards-without-getting-blocked',
-    title: 'Scraping job boards without getting blocked',
-    track: 'Engineering',
-    date: '2026-07-14',
-    excerpt:
-      'What actually keeps a Selenium scraper alive across a long run: pacing, resource cleanup, and treating every missing element as expected rather than exceptional.',
-    readingMinutes: 7,
-    draft: true,
-  },
   {
     slug: 'how-machines-learn-to-read-arabic',
     title: 'How Machines Learn to Read Arabic',
@@ -35,49 +21,7 @@ export const articles: readonly Article[] = [
     dek: "Five things that make Arabic one of the harder languages to process computationally — and what the research actually says about how far we've got.",
     readingMinutes: 9,
   },
-  {
-    slug: 'reporting-pipelines-should-fail-loudly',
-    title: 'Reporting pipelines should fail loudly',
-    track: 'Engineering',
-    date: '2026-06-02',
-    excerpt:
-      'A report that silently ships wrong numbers is worse than one that never sends. Notes on validating input before a single KPI gets calculated.',
-    readingMinutes: 6,
-    draft: true,
-  },
-  {
-    slug: 'diacritics-and-the-cost-of-normalization',
-    title: 'Diacritics and the cost of normalization',
-    track: 'Arabic NLP',
-    date: '2026-05-18',
-    excerpt:
-      'Stripping diacritics makes text easier to match and harder to disambiguate. Where that tradeoff helps a search index and where it destroys meaning.',
-    readingMinutes: 8,
-    draft: true,
-  },
-  {
-    slug: 'batch-jobs-that-survive-one-bad-file',
-    title: 'Batch jobs that survive one bad file',
-    track: 'Engineering',
-    date: '2026-04-27',
-    excerpt:
-      'Processing a folder of images taught me more about error boundaries than any web framework did. On isolating failure to a single iteration.',
-    readingMinutes: 5,
-    draft: true,
-  },
-  {
-    slug: 'building-a-root-and-pattern-test-set',
-    title: 'Building a root-and-pattern test set',
-    track: 'Arabic NLP',
-    date: '2026-04-09',
-    excerpt:
-      'Arabic morphology is generative, so a lemmatizer needs test cases that cover patterns rather than words. How I started assembling one.',
-    readingMinutes: 10,
-    draft: true,
-  },
 ];
-
-export const publishedArticles = articles.filter((a) => !a.draft);
 
 /** Newest first, used by both the index page and the homepage preview. */
 export const articlesByDate = [...articles].sort((a, b) =>

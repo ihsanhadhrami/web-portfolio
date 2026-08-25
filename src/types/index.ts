@@ -86,11 +86,4 @@ export interface Article {
   /** Standfirst shown beneath the title on the article page itself. */
   readonly dek?: string;
   readonly readingMinutes?: number;
-  /**
-   * True while the post is an unwritten placeholder. Draft cards still
-   * render (so the layout is reviewable) but are visibly marked, link
-   * nowhere, and stay out of the sitemap. A post is only routable once
-   * this is false AND a body is registered in content/articles.
-   */
-  readonly draft?: boolean;
 }
