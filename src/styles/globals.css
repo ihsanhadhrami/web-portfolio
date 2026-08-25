@@ -289,3 +289,158 @@
     font-family: var(--font-display);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Article prose                                                      */
+/*                                                                     */
+/*  Scoped element styles rather than utility classes on every tag, so */
+/*  article bodies stay readable as plain semantic markup. Measure is   */
+/*  capped near 68ch: long-form reading, not a marketing column.        */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .article-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-muted-foreground);
+  }
+
+  .article-body > * {
+    max-width: 68ch;
+  }
+
+  .article-body p,
+  .article-body ul,
+  .article-body ol {
+    margin-block: 1.25em;
+  }
+
+  .article-body h2 {
+    margin-block: 2.5em 0.75em;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--color-foreground);
+    text-wrap: balance;
+  }
+
+  .article-body > :first-child {
+    margin-block-start: 0;
+  }
+
+  .article-body strong {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .article-body a {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 3px;
+  }
+
+  .article-body a:hover {
+    color: var(--color-primary);
+  }
+
+  .article-body code {
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-foreground);
+  }
+
+  /* Separates the numbered sections without a hairline under every
+     paragraph. */
+  .article-body hr {
+    max-width: none;
+    margin-block: 3em;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Wide content scrolls inside its own box; the page body never does. */
+  .article-body .table-scroll {
+    max-width: none;
+    margin-block: 1.75em;
+    overflow-x: auto;
+  }
+
+  .article-body table {
+    width: 100%;
+    min-width: 18rem;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .article-body th {
+    padding: 0.6em 1.5em 0.6em 0;
+    border-bottom: 1px solid var(--color-border);
+    font-weight: 600;
+    text-align: start;
+    color: var(--color-foreground);
+  }
+
+  .article-body td {
+    padding: 0.6em 1.5em 0.6em 0;
+    vertical-align: baseline;
+  }
+
+  .article-body tbody tr + tr td {
+    border-top: 1px solid
+      color-mix(in oklab, var(--color-border) 55%, transparent);
+  }
+
+  /* Arabic set slightly larger: at body size the diacritic-free forms
+     are hard to read next to Latin text. */
+  .article-body .lang-ar {
+    font-size: 1.15em;
+    line-height: 1.4;
+  }
+
+  .article-body sup {
+    line-height: 0;
+  }
+
+  .article-body sup a {
+    padding-inline: 0.15em;
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+
+  .article-body sup a:hover {
+    text-decoration: underline;
+  }
+
+  .article-body .footnotes {
+    /* Preflight strips list markers. The numbers are load-bearing here:
+       they are what a [4] marker in the prose points at. */
+    list-style: decimal;
+    margin-block-start: 1.5em;
+    padding-inline-start: 1.9em;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .article-body .footnotes li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-primary);
+  }
+
+  /* Scroll clearance so a jumped-to note clears the fixed navbar. */
+  .article-body .footnotes li {
+    margin-block: 0.85em;
+    scroll-margin-top: 6rem;
+  }
+
+  .article-body .footnotes a {
+    overflow-wrap: anywhere;
+  }
+}

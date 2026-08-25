@@ -13,6 +13,7 @@ const PAGES = [
   '/projects',
   '/projects/focus-system',
   '/articles',
+  '/articles/how-machines-learn-to-read-arabic',
   '/services',
   '/about',
   '/contact',
@@ -25,6 +26,10 @@ const PAGES = [
  * opacity 0 / mid-reveal and report spurious color-contrast failures.
  */
 async function settleReveals(page: Page): Promise<void> {
+  // Webfonts swap in async. A reflow partway through the scan can leave
+  // axe measuring text that is still mid-reveal.
+  await page.evaluate(() => document.fonts.ready);
+
   await page.evaluate(async () => {
     const step = window.innerHeight;
     for (let y = 0; y <= document.body.scrollHeight; y += step) {

@@ -6,13 +6,13 @@ export const ARTICLE_TRACKS: readonly ArticleTrack[] = [
 ];
 
 /**
- * PLACEHOLDER CONTENT. Every entry below is `draft: true` scaffolding so the
- * index layout and track filter can be reviewed with realistic titles.
+ * Entries still marked `draft: true` are placeholder scaffolding, kept so the
+ * index layout and track filter stay reviewable while the backlog fills in.
  *
- * To publish one: write the body, set `draft: false`, and add the
- * `/articles/:slug` detail route. Draft entries still render (so the layout
- * is reviewable) but are visibly marked, link nowhere, and never reach the
- * sitemap, so nothing advertises a post with no body behind it.
+ * To publish one: write its body under `content/articles/`, register it in
+ * that directory's index, and drop the `draft` flag. Drafts render on the
+ * index (visibly marked) but link nowhere and never reach the sitemap, so
+ * nothing advertises a post with no body behind it.
  */
 export const articles: readonly Article[] = [
   {
@@ -26,14 +26,14 @@ export const articles: readonly Article[] = [
     draft: true,
   },
   {
-    slug: 'arabic-tokenization-breaks-english-first-pipelines',
-    title: 'Why Arabic tokenization breaks English-first pipelines',
+    slug: 'how-machines-learn-to-read-arabic',
+    title: 'How Machines Learn to Read Arabic',
     track: 'Arabic NLP',
-    date: '2026-06-30',
+    date: '2026-08-25',
     excerpt:
-      'Clitics attach, vowels go unwritten, and one orthographic word can carry a whole clause. A walk through where whitespace tokenizers quietly lose information.',
+      'Arabic packs into a single written word what English spreads across a clause, and it drops most of its vowels on the way. Five specific consequences, with the numbers the research actually reports.',
+    dek: "Five things that make Arabic one of the harder languages to process computationally — and what the research actually says about how far we've got.",
     readingMinutes: 9,
-    draft: true,
   },
   {
     slug: 'reporting-pipelines-should-fail-loudly',
@@ -91,4 +91,8 @@ export function formatArticleDate(iso: string): string {
     year: 'numeric',
     timeZone: 'UTC',
   });
+}
+
+export function getArticleBySlug(slug: string): Article | undefined {
+  return articles.find((a) => a.slug === slug);
 }

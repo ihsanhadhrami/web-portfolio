@@ -11,6 +11,7 @@ const PAGES = [
   '/projects',
   '/projects/focus-system',
   '/articles',
+  '/articles/how-machines-learn-to-read-arabic',
   '/services',
   '/about',
   '/contact',

@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import { fileURLToPath, URL } from 'node:url';
 import { projects } from './src/data/projects';
+import { publishedArticles } from './src/data/articles';
 
 const SITE_URL = process.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com';
 
@@ -37,6 +38,12 @@ function sitemapPlugin(): Plugin {
         ...STATIC_ROUTES.map(([path, priority]) => ({ path, priority })),
         ...projects.map((p) => ({
           path: `/projects/${p.slug}`,
+          priority: '0.7',
+        })),
+        // Drafts are excluded: they have no body, so indexing one would
+        // advertise a soft 404.
+        ...publishedArticles.map((a) => ({
+          path: `/articles/${a.slug}`,
           priority: '0.7',
         })),
       ];

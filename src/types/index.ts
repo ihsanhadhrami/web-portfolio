@@ -83,11 +83,14 @@ export interface Article {
   /** ISO date (YYYY-MM-DD), formatted for display at render time. */
   readonly date: string;
   readonly excerpt: string;
+  /** Standfirst shown beneath the title on the article page itself. */
+  readonly dek?: string;
   readonly readingMinutes?: number;
   /**
-   * True while the post is an unwritten placeholder. Draft cards render
-   * as non-interactive and are excluded from the homepage preview, so
-   * nothing links to a body that does not exist yet.
+   * True while the post is an unwritten placeholder. Draft cards still
+   * render (so the layout is reviewable) but are visibly marked, link
+   * nowhere, and stay out of the sitemap. A post is only routable once
+   * this is false AND a body is registered in content/articles.
    */
   readonly draft?: boolean;
 }
