@@ -29,6 +29,11 @@
       Conversely <title>/description/canonical are owned by <Seo> so each
       route gets its own, which search engines (which do render JS) and
       browser tabs both need.
+
+      The title and description below are a hand-kept copy of SITE.name +
+      SITE.role and SITE.shortBio from src/constants/site.ts. Static HTML
+      cannot import them, so seo.spec asserts the two copies still agree
+      on the home route rather than trusting them to.
     -->
 
     <!-- Open Graph -->
@@ -38,7 +43,7 @@
     <meta property="og:title" content="Ihsan Hadhrami — Web Developer & Automation Engineer" />
     <meta
       property="og:description"
-      content="Crafting fast, accessible, and beautifully engineered digital products."
+      content="Developer and automation engineer building backend tools that remove manual work, with a focus on Arabic language technology."
     />
     <meta property="og:url" content="https://ihsanhadhrami.com/" />
     <meta property="og:image" content="https://ihsanhadhrami.com/og-image.png" />
@@ -54,7 +59,7 @@
     <meta name="twitter:title" content="Ihsan Hadhrami — Web Developer & Automation Engineer" />
     <meta
       name="twitter:description"
-      content="Crafting fast, accessible, and beautifully engineered digital products."
+      content="Developer and automation engineer building backend tools that remove manual work, with a focus on Arabic language technology."
     />
     <meta name="twitter:image" content="https://ihsanhadhrami.com/og-image.png" />
 

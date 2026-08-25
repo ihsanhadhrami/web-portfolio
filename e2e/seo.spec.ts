@@ -72,6 +72,43 @@ for (const { path, titleContains } of PAGES) {
   });
 }
 
+/**
+ * index.html holds a hand-typed copy of SITE.name + SITE.role and
+ * SITE.shortBio, because social scrapers never run the JS that would let
+ * <Seo> render them. Nothing in the type system ties the two together, so
+ * the copies drift silently — og:description once advertised a generic
+ * "beautifully engineered digital products" line the site said nowhere
+ * else. On the home route the static tags and the rendered ones describe
+ * the same page, so they must agree character for character.
+ */
+test('social tags match the copy the app renders', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByText('Loading…')).toHaveCount(0);
+
+  const content = (selector: string) =>
+    page.evaluate(
+      (s) => document.head.querySelector(s)?.getAttribute('content') ?? '',
+      selector,
+    );
+
+  const title = await page.title();
+  const description = await content('meta[name="description"]');
+  expect(description.length).toBeGreaterThan(0);
+
+  expect(await content('meta[property="og:title"]')).toBe(title);
+  expect(await content('meta[name="twitter:title"]')).toBe(title);
+  expect(await content('meta[property="og:image:alt"]')).toBe(title);
+  expect(await content('meta[property="og:description"]')).toBe(description);
+  expect(await content('meta[name="twitter:description"]')).toBe(description);
+
+  // The manifest carries a third copy, and installs the app under it.
+  const manifest = await page.request.get('/site.webmanifest');
+  expect(manifest.ok()).toBe(true);
+  const { name, description: manifestDescription } = await manifest.json();
+  expect(name).toBe(title);
+  expect(manifestDescription).toBe(description);
+});
+
 test('static head tags reference the real production domain', async ({
   page,
 }) => {
