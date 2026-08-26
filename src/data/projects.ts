@@ -128,7 +128,7 @@ export const projects: readonly Project[] = [
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/ai-powered-business-reports',
     liveUrl: 'https://aibusinessreports.ihsanhadhrami.com/',
-    cover: '/ai-business-reports-cover.png',
+    cover: '/ai-business-reports-cover.jpg',
     accent: 'cyan',
   },
 ];
