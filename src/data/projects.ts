@@ -104,6 +104,7 @@ export const projects: readonly Project[] = [
       'Fault-tolerant batch — a single failed image is logged and never stops the run.',
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/Image_Automation_Tool-Python',
+    cover: '/image-automation-engine-cover.jpg',
     accent: 'amber',
   },
   {
