@@ -31,22 +31,33 @@ test.describe('Articles index', () => {
     }
   });
 
-  test('draft cards are marked and link nowhere', async ({ page }) => {
+  test('every card either links out or is marked a draft', async ({ page }) => {
     await page.goto('/articles');
 
-    const drafts = page.getByText(/^draft$/i);
-    // count() does not retry, so wait for the lazy route to mount first.
-    await expect(drafts.first()).toBeVisible();
-    const draftCount = await drafts.count();
-    expect(draftCount).toBeGreaterThan(0);
+    const links = page.locator('a[href^="/articles/"]');
+    await expect(links.first()).toBeVisible();
 
-    // A draft marker must never sit inside an anchor.
+    // Written without requiring drafts to exist: the backlog is empty right
+    // now, but the invariant is what matters. No card may be a dead end,
+    // and a draft marker may never sit inside an anchor.
+    const drafts = page.getByText(/^draft$/i);
+    const draftCount = await drafts.count();
+
     for (let i = 0; i < draftCount; i += 1) {
       const insideLink = await drafts
         .nth(i)
         .evaluate((el) => el.closest('a') !== null);
       expect(insideLink, 'draft cards must not be links').toBe(false);
     }
+
+    const cardCount = await page
+      .getByRole('main')
+      .locator('article, a[href^="/articles/"]')
+      .count();
+    expect(
+      (await links.count()) + draftCount,
+      'every card is either a working link or a marked draft',
+    ).toBe(cardCount);
   });
 
   test('the track filter narrows the list', async ({ page }) => {
@@ -104,6 +115,18 @@ test.describe('Article detail page', () => {
     const root = page.locator('.lang-ar').first();
     await expect(root).toHaveAttribute('lang', 'ar');
     await expect(root).toHaveAttribute('dir', 'rtl');
+  });
+
+  test('the APIs article renders its body and HTTP verb table', async ({
+    page,
+  }) => {
+    await page.goto('/articles/the-invisible-glue-why-apis-run-everything');
+
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(
+      'The Invisible Glue',
+    );
+    await expect(page.getByRole('cell', { name: 'PATCH' })).toBeVisible();
+    await expect(page.locator('.footnotes > li')).toHaveCount(3);
   });
 
   test('an unknown slug is a noindex soft 404, not a crash', async ({

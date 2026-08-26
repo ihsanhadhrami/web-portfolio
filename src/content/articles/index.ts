@@ -15,6 +15,9 @@ export const ARTICLE_BODIES: Record<
   'how-machines-learn-to-read-arabic': lazy(
     () => import('./how-machines-learn-to-read-arabic'),
   ),
+  'the-invisible-glue-why-apis-run-everything': lazy(
+    () => import('./the-invisible-glue-why-apis-run-everything'),
+  ),
 };
 
 export function getArticleBody(
