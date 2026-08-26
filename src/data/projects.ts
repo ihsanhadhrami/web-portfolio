@@ -82,6 +82,7 @@ export const projects: readonly Project[] = [
       'Configuration-driven design with file logging for audit trails.',
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/web_scraping_python',
+    cover: '/job-listings-scraper-cover.jpg',
     accent: 'blue',
   },
   {
