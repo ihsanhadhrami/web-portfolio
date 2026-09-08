@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { SITE, SOCIAL_LINKS } from '@/constants/site';
+import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Reveal } from '@/components/animations/reveal';
 import { SnapSection } from './snap-section';
@@ -14,8 +16,14 @@ interface ContactSectionProps {
 }
 
 /**
- * Direct links only. This is the last panel of the snap flow, so it also
- * carries the copyright line the global footer would otherwise provide.
+ * The last panel of the snap flow, so it also carries the copyright line
+ * the global footer would otherwise provide.
+ *
+ * Offers the same two routes as every other page, in the same order and
+ * under the same label: the form at /contact first, the raw address
+ * second. This panel used to claim email was the fastest way to get in
+ * touch while the nav's primary button sent people to a form, which left
+ * the two halves of the site disagreeing about how to reach him.
  */
 export function ContactSection({ number, label }: ContactSectionProps) {
   return (
@@ -25,16 +33,24 @@ export function ContactSection({ number, label }: ContactSectionProps) {
           Let&apos;s work together.
         </h2>
         <p className="max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
-          {SITE.availability}. The fastest way to reach me is email.
+          {SITE.availability}. Send me the details and I&apos;ll get back to
+          you, or email me directly.
         </p>
+
+        <Button asChild size="lg" className="w-full sm:w-fit">
+          <Link to="/contact">
+            Let&apos;s talk
+            <ArrowUpRight className="size-4" />
+          </Link>
+        </Button>
 
         <a
           href={`mailto:${SITE.email}`}
-          className="group inline-flex w-fit items-center gap-2 rounded-md font-display text-xl font-bold tracking-tight break-all text-foreground underline decoration-primary decoration-2 underline-offset-8 transition-colors hover:text-primary sm:text-3xl lg:text-4xl"
+          className="group inline-flex w-fit items-center gap-2 rounded-md font-display text-lg font-bold tracking-tight break-all text-foreground underline decoration-primary decoration-2 underline-offset-8 transition-colors hover:text-primary sm:text-2xl"
         >
           {SITE.email}
           <ArrowUpRight
-            className="size-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:size-7"
+            className="size-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:size-5"
             aria-hidden="true"
           />
         </a>

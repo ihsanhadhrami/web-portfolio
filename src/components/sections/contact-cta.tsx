@@ -25,7 +25,7 @@ export function ContactCta() {
             <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link to="/contact">
-                  Start a conversation
+                  Let&apos;s talk
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>

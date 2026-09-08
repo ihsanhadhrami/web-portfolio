@@ -13,7 +13,7 @@ interface FormValues {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Cloudflare Pages Function backing this form (functions/api/contact.ts). */
+/** Worker route backing this form (worker/index.ts). */
 const CONTACT_ENDPOINT = '/api/contact';
 
 const inputClass =
