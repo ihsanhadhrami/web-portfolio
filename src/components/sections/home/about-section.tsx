@@ -31,15 +31,16 @@ export function AboutSection({ number, label }: AboutSectionProps) {
           </h2>
           <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
             <p>
-              I build AI-powered applications. Right now that means Arabic NLP,
-              and a bilingual customer support assistant that answers in Arabic
-              or English from a company&apos;s own documents using
-              retrieval-augmented generation.
+              I build AI-powered applications with retrieval-augmented
+              generation and agentic AI. Right now that means a bilingual
+              customer support assistant that answers in Arabic or English from
+              a company&apos;s own documents, and Arabic NLP work on how models
+              read the language.
             </p>
             <p>
               Arabic breaks most of the assumptions English-first tooling is
-              built on, and that gap is the interesting part. Web development
-              and automation are where I started, and they are still how the AI
+              built on, and that gap is the interesting part. I still take on
+              full-stack web work, which I know end to end, and it is how the AI
               gets shipped: the backend, the pipelines, and the interface around
               the model.
             </p>

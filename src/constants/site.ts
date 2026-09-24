@@ -16,10 +16,10 @@ export const SITE = {
    */
   role: 'AI Application Developer',
   shortBio:
-    'AI application developer building LLM-powered tools for Arabic and English, from Arabic NLP to bilingual RAG support, on a web and automation foundation.',
-  /** Hero sub-line. Web and automation stay, as the foundation. */
+    'AI application developer building RAG and agentic AI apps in Arabic and English, backed by full-stack web development I already know end to end.',
+  /** Hero sub-line. Web work stays, framed as the foundation. */
   focus:
-    'I build AI-powered applications that work in Arabic as well as English, from Arabic NLP to a bilingual RAG customer support assistant.',
+    'I build AI-powered applications with RAG and agentic AI, in Arabic as well as English. Full-stack web development is the foundation I build them on.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
   email: 'ihsan@ihsanhadhrami.com',

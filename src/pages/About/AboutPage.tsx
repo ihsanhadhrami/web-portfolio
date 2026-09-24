@@ -36,13 +36,13 @@ export default function AboutPage() {
     <>
       <Seo
         title="About"
-        description={`${SITE.name} is an AI application developer building Arabic NLP and bilingual RAG applications, with a background in web and automation engineering.`}
+        description={`${SITE.name} is an AI application developer building RAG and agentic AI applications in Arabic and English, backed by full-stack web development.`}
         path="/about"
       />
       <PageHeader
         eyebrow="About"
         title="I build AI that works in Arabic."
-        description="An AI application developer who came to it through web and automation engineering, and stayed for the problem of making language models handle Arabic properly."
+        description="An AI application developer building with RAG and agentic AI. I still ship full-stack web work, which I know end to end, but the focus now is making language models handle Arabic properly."
       />
 
       <Section>
