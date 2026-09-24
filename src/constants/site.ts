@@ -5,18 +5,21 @@
 export const SITE = {
   name: 'Ihsan Hadhrami',
   /**
-   * Kept concise on purpose: this string is appended to every page title,
-   * which already sits near the ~60-character limit search results
-   * truncate at. The Arabic NLP half of the positioning is carried by
-   * `shortBio` (the meta description, where there is room for it) and by
-   * `focus` in the hero.
+   * Kept concise on purpose: this string is the homepage title, and search
+   * results truncate at ~60 characters. The specifics (Arabic NLP, the
+   * bilingual RAG work) are carried by `shortBio` in the meta description
+   * and by `focus` in the hero, where there is room for them.
+   *
+   * "Application" is deliberate: the work is building products on top of
+   * language models, not training them, and the title should not claim
+   * the latter.
    */
-  role: 'Web Developer & Automation Engineer',
+  role: 'AI Application Developer',
   shortBio:
-    'Developer and automation engineer building backend tools that remove manual work, with a focus on Arabic language technology.',
-  /** Hero sub-line. Carries both tracks under one identity. */
+    'AI application developer building LLM-powered tools for Arabic and English, from Arabic NLP to bilingual RAG support, on a web and automation foundation.',
+  /** Hero sub-line. Web and automation stay, as the foundation. */
   focus:
-    'I build automation and backend tools, and study Arabic computational linguistics.',
+    'I build AI-powered applications that work in Arabic as well as English, from Arabic NLP to a bilingual RAG customer support assistant.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
   email: 'ihsan@ihsanhadhrami.com',
