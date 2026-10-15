@@ -10,11 +10,11 @@ export function TechStack() {
     <Section id="stack" className="border-t border-border">
       <SectionHeading
         eyebrow="Toolkit"
-        title="A stack chosen for the long run."
-        description="Tools I reach for to build fast, typed, and maintainable products."
+        title="Everything I work with."
+        description="The tools, techniques, and languages behind the AI, web, automation, and translation work."
       />
 
-      <Stagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <Stagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {skillGroups.map((group) => (
           <StaggerItem
             key={group.category}

@@ -1,54 +1,65 @@
 import type { SkillGroup } from '@/types';
 
 /**
- * Grouped around the two tracks the site now covers rather than a generic
- * stack list: the first three groups speak to backend / automation / SaaS
- * support roles, the fourth to Arabic language technology.
+ * One group per side of the work, in the same order the bio names them:
+ * AI applications, full-stack web, Python automation, then language and
+ * translation. Tools are only listed when a project or real work backs
+ * them; the AI group names techniques rather than frameworks until a
+ * shipped project pins those down.
  *
- * `brand` values are simple-icons slugs. Skills with no brand mark (an
- * area of study rather than a product) simply omit it and render as text.
+ * `brand` values are simple-icons slugs. Skills with no brand mark (a
+ * technique or a language pair rather than a product) omit it and
+ * render as text.
  */
 export const skillGroups: readonly SkillGroup[] = [
   {
-    category: 'Frontend',
+    category: 'AI Applications',
+    icon: 'Sparkles',
+    skills: [
+      { name: 'RAG' },
+      { name: 'Agentic AI' },
+      { name: 'Embeddings' },
+      { name: 'Prompt engineering' },
+      { name: 'OpenRouter', brand: 'openrouter' },
+      { name: 'Hugging Face', brand: 'huggingface' },
+    ],
+  },
+  {
+    category: 'Full-Stack Web',
     icon: 'LayoutDashboard',
     skills: [
       { name: 'React', brand: 'react' },
       { name: 'TypeScript', brand: 'typescript' },
       { name: 'Next.js', brand: 'nextdotjs' },
       { name: 'Tailwind CSS', brand: 'tailwindcss' },
-      { name: 'Framer Motion', brand: 'framer' },
       { name: 'Vite', brand: 'vite' },
-    ],
-  },
-  {
-    category: 'Backend & APIs',
-    icon: 'Server',
-    skills: [
       { name: 'Node.js', brand: 'nodedotjs' },
-      { name: 'Python', brand: 'python' },
       { name: 'PostgreSQL', brand: 'postgresql' },
-      { name: 'REST APIs' },
       { name: 'Cloudflare Workers', brand: 'cloudflare' },
+      { name: 'REST APIs' },
     ],
   },
   {
-    category: 'Automation',
+    category: 'Python & Automation',
     icon: 'Workflow',
     skills: [
+      { name: 'Python', brand: 'python' },
       { name: 'Selenium', brand: 'selenium' },
       { name: 'pandas', brand: 'pandas' },
+      { name: 'NumPy', brand: 'numpy' },
       { name: 'Pillow' },
+      { name: 'pytest', brand: 'pytest' },
       { name: 'Scheduled jobs' },
       { name: 'Email pipelines' },
     ],
   },
   {
-    category: 'Arabic NLP & Data',
+    category: 'Language & Translation',
     icon: 'Languages',
     skills: [
-      { name: 'Hugging Face', brand: 'huggingface' },
-      { name: 'NumPy', brand: 'numpy' },
+      { name: 'Arabic → Malay' },
+      { name: 'Arabic → English' },
+      { name: 'Arabic NLP' },
       { name: 'Arabic morphology' },
       { name: 'Tokenization' },
       { name: 'Corpus building' },

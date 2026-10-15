@@ -10,7 +10,7 @@ import {
   Mail,
   Palette,
   Rocket,
-  Server,
+  Sparkles,
   Twitter,
   Workflow,
 } from 'lucide-react';
@@ -27,7 +27,7 @@ const REGISTRY: Record<string, LucideIcon> = {
   Languages,
   Palette,
   Rocket,
-  Server,
+  Sparkles,
   Workflow,
   Gauge,
   Github,
