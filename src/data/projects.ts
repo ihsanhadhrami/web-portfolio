@@ -124,6 +124,7 @@ export const projects: readonly Project[] = [
       'Glossed computational biology as "biologi komputasi (Bioinformatik)" for Malay readers less familiar with the term.',
       'Kept scientific terms and proper nouns consistent across both targets: protein structures, AlphaFold 2, Google DeepMind.',
     ],
+    cover: '/nobel-chemistry-2024-translation-cover.jpg',
     accent: 'violet',
     translation: nobelChemistry2024,
   },
