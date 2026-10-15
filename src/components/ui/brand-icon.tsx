@@ -1,6 +1,7 @@
 import {
   siCloudflare,
   siHuggingface,
+  siLangchain,
   siNextdotjs,
   siNodedotjs,
   siNumpy,
@@ -27,6 +28,7 @@ import {
 const BRANDS = {
   cloudflare: siCloudflare,
   huggingface: siHuggingface,
+  langchain: siLangchain,
   nextdotjs: siNextdotjs,
   nodedotjs: siNodedotjs,
   numpy: siNumpy,

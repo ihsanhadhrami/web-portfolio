@@ -4,8 +4,9 @@ import type { SkillGroup } from '@/types';
  * One group per side of the work, in the same order the bio names them:
  * AI applications, full-stack web, Python automation, then language and
  * translation. Tools are only listed when a project or real work backs
- * them; the AI group names techniques rather than frameworks until a
- * shipped project pins those down.
+ * them. The AI group's stack (LangChain, ChromaDB, watsonx.ai, Sentence
+ * Transformers) is what Ihsan builds RAG with today, through IBM's
+ * Coursera coursework.
  *
  * `brand` values are simple-icons slugs. Skills with no brand mark (a
  * technique or a language pair rather than a product) omit it and
@@ -18,10 +19,13 @@ export const skillGroups: readonly SkillGroup[] = [
     skills: [
       { name: 'RAG' },
       { name: 'Agentic AI' },
-      { name: 'Embeddings' },
-      { name: 'Prompt engineering' },
-      { name: 'OpenRouter', brand: 'openrouter' },
+      { name: 'LangChain', brand: 'langchain' },
+      { name: 'ChromaDB' },
+      { name: 'IBM watsonx.ai' },
+      { name: 'Sentence Transformers' },
       { name: 'Hugging Face', brand: 'huggingface' },
+      { name: 'OpenRouter', brand: 'openrouter' },
+      { name: 'Prompt engineering' },
     ],
   },
   {
