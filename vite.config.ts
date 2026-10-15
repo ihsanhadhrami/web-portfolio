@@ -22,7 +22,7 @@ const STATIC_ROUTES: ReadonlyArray<[path: string, priority: string]> = [
  * Emits sitemap.xml at build time from the same data the UI renders, so
  * adding a project can never silently leave it unindexed. Replaces the
  * previous hand-maintained public/sitemap.xml, which had already drifted
- * (it was missing the Léna Maison Spa route entirely).
+ * (it was missing a project route entirely).
  */
 function sitemapPlugin(): Plugin {
   return {
