@@ -10,16 +10,18 @@ export const SITE = {
    * bilingual RAG work) are carried by `shortBio` in the meta description
    * and by `focus` in the hero, where there is room for them.
    *
-   * "Application" is deliberate: the work is building products on top of
-   * language models, not training them, and the title should not claim
-   * the latter.
+   * Names the two sides of the work a visitor would not guess from the
+   * other: building AI, and translating Arabic. Web and automation are
+   * covered by "developer" here and spelled out in `focus`. "AI
+   * developer" rather than "AI engineer" because the work is building on
+   * language models, not training them.
    */
-  role: 'AI Application Developer',
+  role: 'AI Developer & Arabic Translator',
   shortBio:
-    'AI application developer building RAG and agentic AI apps in Arabic and English, backed by full-stack web development I already know end to end.',
-  /** Hero sub-line. Web work stays, framed as the foundation. */
+    'AI developer and Arabic translator. I build RAG and agentic AI apps, full-stack web apps, and Python automation, and translate Arabic into Malay and English.',
+  /** Hero sub-line. Every side of the work, held together by one thread. */
   focus:
-    'I build AI-powered applications with RAG and agentic AI, in Arabic as well as English. Full-stack web development is the foundation I build them on.',
+    'I build AI applications with RAG and agentic AI, ship full-stack web apps and Python automation, and translate Arabic into Malay and English. Most of my work sits where language meets software.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
   email: 'ihsan@ihsanhadhrami.com',

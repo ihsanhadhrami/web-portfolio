@@ -1,19 +1,16 @@
 import { projects } from '@/data/projects';
+import { publishedArticles } from '@/data/articles';
 import { Reveal } from '@/components/animations/reveal';
 import { SnapSection } from './snap-section';
 
 /**
- * Counts are derived from the projects data rather than typed in, so they
- * cannot drift out of date the next time a project is added.
+ * Counts are derived from the data rather than typed in, so they cannot
+ * drift out of date the next time a project or article is added.
  */
-const automationCount = projects.filter(
-  (p) => p.category === 'Automation',
-).length;
-
 const STATS = [
-  { value: String(projects.length), label: 'Projects shipped' },
-  { value: String(automationCount), label: 'Automation tools' },
-  { value: 'AR / EN', label: 'Bilingual' },
+  { value: String(projects.length), label: 'Projects' },
+  { value: String(publishedArticles.length), label: 'Articles published' },
+  { value: '3', label: 'Languages · AR, MS, EN' },
 ] as const;
 
 interface AboutSectionProps {
@@ -27,22 +24,21 @@ export function AboutSection({ number, label }: AboutSectionProps) {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
         <Reveal className="flex flex-col gap-6">
           <h2 className="font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-            AI for Arabic, built on solid engineering.
+            Where language meets software.
           </h2>
           <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
             <p>
-              I build AI-powered applications with retrieval-augmented
-              generation and agentic AI. Right now that means a bilingual
-              customer support assistant that answers in Arabic or English from
-              a company&apos;s own documents, and Arabic NLP work on how models
-              read the language.
+              I build AI applications with retrieval-augmented generation and
+              agentic AI. Right now that means a bilingual customer support
+              assistant that answers in Arabic or English from a company&apos;s
+              own documents, and writing about how models read Arabic.
             </p>
             <p>
-              Arabic breaks most of the assumptions English-first tooling is
-              built on, and that gap is the interesting part. I still take on
-              full-stack web work, which I know end to end, and it is how the AI
-              gets shipped: the backend, the pipelines, and the interface around
-              the model.
+              I also ship full-stack web apps and Python automation that turns
+              hours of manual work into minutes, and I translate Arabic into
+              Malay and English. Working across three languages is why Arabic is
+              where my AI work focuses: English-first tooling breaks on it, and
+              that gap is the interesting part.
             </p>
           </div>
         </Reveal>

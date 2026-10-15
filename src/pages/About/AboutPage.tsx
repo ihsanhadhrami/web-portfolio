@@ -36,13 +36,13 @@ export default function AboutPage() {
     <>
       <Seo
         title="About"
-        description={`${SITE.name} is an AI application developer building RAG and agentic AI applications in Arabic and English, backed by full-stack web development.`}
+        description={`${SITE.name} is an AI developer and Arabic translator building RAG and agentic AI apps, full-stack web apps, and Python automation, and translating Arabic into Malay and English.`}
         path="/about"
       />
       <PageHeader
         eyebrow="About"
-        title="I build AI that works in Arabic."
-        description="An AI application developer building with RAG and agentic AI. I still ship full-stack web work, which I know end to end, but the focus now is making language models handle Arabic properly."
+        title="I work where language meets software."
+        description="AI applications, full-stack web, Python automation, and Arabic translation into Malay and English. Different kinds of work, built on the same skill."
       />
 
       <Section>
@@ -50,15 +50,21 @@ export default function AboutPage() {
           <Reveal className="flex flex-col gap-5 text-base leading-relaxed text-muted-foreground lg:col-span-2">
             <p>
               Hi, I'm {SITE.name.split(' ')[0]}. I started building
-              professionally in late 2025, and in that time I've gone from first
-              commit to shipping real, production-ready products — starting with
-              Focus System, a Pomodoro-style productivity app.
+              professionally in late 2025: first Focus System, a Pomodoro-style
+              productivity app, then Python tools that automate job searching,
+              image processing, and business reporting.
             </p>
             <p>
-              I started out fascinated by the seam where design meets code, and
-              I've been chasing that intersection ever since. My favorite
-              projects are the ones where good engineering makes the design feel
-              inevitable, and good design makes the engineering worth it.
+              My focus now is AI applications: retrieval-augmented and agentic
+              systems that work in Arabic as well as English, including a
+              bilingual customer support assistant. I write about Arabic NLP,
+              and I still take on full-stack web work, which I know end to end.
+            </p>
+            <p>
+              I also translate Arabic into Malay and English. Translation and
+              software turn out to be the same discipline: understanding a
+              structure well enough to rebuild it somewhere new without losing
+              what it meant.
             </p>
             <div className="mt-2 flex flex-wrap gap-3">
               <Button asChild size="sm">
