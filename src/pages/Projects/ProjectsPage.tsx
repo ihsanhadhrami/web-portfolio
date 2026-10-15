@@ -37,14 +37,14 @@ export default function ProjectsPage() {
     <>
       <Seo
         title="Projects"
-        description="A collection of web applications, websites, and Python automation tools engineered end to end."
+        description="Web applications, Python automation tools, and Arabic to Malay and English translation work."
         path="/projects"
         jsonLd={collectionJsonLd}
       />
       <PageHeader
         eyebrow="Portfolio"
         title="Projects & case studies."
-        description="A collection of products I've designed and engineered — from data-heavy web apps and marketing sites to Python automation tools."
+        description="Things I've built and translated: web apps, Python automation tools, and translation from Arabic into Malay and English."
       />
 
       <FilterableIndex

@@ -10,7 +10,32 @@ export type ProjectCategory =
   | 'Automation'
   | 'Design System'
   | 'Mobile'
-  | 'Open Source';
+  | 'Open Source'
+  | 'Translation';
+
+/** Arabic is the source language; Malay and English are the targets. */
+export type TranslationLanguage = 'ar' | 'ms' | 'en';
+
+/** One unit of text in every language at once. */
+export type AlignedText = Readonly<Record<TranslationLanguage, string>>;
+
+/**
+ * A side-by-side translation sample. Each passage carries all three
+ * languages in one record rather than three parallel arrays, so the
+ * columns cannot drift out of alignment when a paragraph is added.
+ */
+export interface TranslationSample {
+  readonly source: {
+    /** Original headline, in the source language. */
+    readonly title: string;
+    readonly publisher: string;
+    /** ISO date, e.g. '2024-10-10'. */
+    readonly date: string;
+    readonly url: string;
+  };
+  readonly headline: AlignedText;
+  readonly passages: readonly AlignedText[];
+}
 
 export interface ProjectLink {
   readonly label: string;
@@ -41,6 +66,8 @@ export interface Project {
   readonly logo?: string;
   /** Short accent used to tint the placeholder cover, e.g. 'violet'. */
   readonly accent?: string;
+  /** Rendered side by side on the detail page for Translation projects. */
+  readonly translation?: TranslationSample;
 }
 
 export interface Service {

@@ -11,6 +11,7 @@ import { ProjectCover } from '@/components/cards/project-cover';
 import { ProjectCard } from '@/components/cards/project-card';
 import { Reveal } from '@/components/animations/reveal';
 import { NotFoundBlock } from '@/components/sections/not-found-block';
+import { TranslationSample } from '@/components/sections/translation-sample';
 
 export default function ProjectDetailsPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -45,7 +46,7 @@ export default function ProjectDetailsPage() {
 
   // CreativeWork rather than a more specific type like SoftwareApplication:
   // it's the one truthful type that covers everything in the catalog — web
-  // apps, marketing landing pages, and CLI automation tools — without
+  // apps, CLI automation tools, and translations — without
   // overclaiming for any of them.
   const projectJsonLd = {
     '@type': 'CreativeWork',
@@ -57,6 +58,9 @@ export default function ProjectDetailsPage() {
     creator: { '@id': `${SITE.url}/#person` },
     dateCreated: String(project.year),
     keywords: project.tech.join(', '),
+    ...(project.translation
+      ? { inLanguage: ['ms', 'en'], isBasedOn: project.translation.source.url }
+      : {}),
   };
 
   return (
@@ -181,7 +185,9 @@ export default function ProjectDetailsPage() {
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                  Tech stack
+                  {project.category === 'Translation'
+                    ? 'Languages'
+                    : 'Tech stack'}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.tech.map((tech) => (
@@ -196,6 +202,12 @@ export default function ProjectDetailsPage() {
               </div>
             </Reveal>
           </div>
+
+          {project.translation && (
+            <Reveal className="mt-16">
+              <TranslationSample sample={project.translation} />
+            </Reveal>
+          )}
         </Container>
       </Section>
 

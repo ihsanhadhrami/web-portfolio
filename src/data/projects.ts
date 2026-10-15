@@ -1,4 +1,7 @@
 import type { Project } from '@/types';
+// Relative, not '@/': vite.config.ts imports this file to build the
+// sitemap, and the alias does not exist yet when the config loads.
+import { nobelChemistry2024 } from '../content/translations/nobel-chemistry-2024';
 
 /**
  * Portfolio projects. The UI renders entirely from this array — add a
@@ -102,6 +105,27 @@ export const projects: readonly Project[] = [
     liveUrl: 'https://aibusinessreports.ihsanhadhrami.com/',
     cover: '/ai-business-reports-cover.jpg',
     accent: 'cyan',
+  },
+  {
+    slug: 'nobel-chemistry-2024-translation',
+    title: 'Nobel Chemistry 2024 Translation',
+    tagline:
+      'An Al Jazeera report on the 2024 Chemistry Nobel, translated from Arabic into Malay and English.',
+    description:
+      'A personal translation sample. My client translation work involves confidential documents, so this piece uses a public source instead: an Al Jazeera Net report on the 2024 Nobel Prize in Chemistry and AlphaFold 2, translated from Arabic into both Malay and English. It shows the same skills client work needs: carrying scientific terminology, quoted speech, and Arabic news syntax into two very different target languages.',
+    category: 'Translation',
+    year: 2026,
+    role: 'Translator',
+    featured: false,
+    tech: ['Arabic → Malay', 'Arabic → English'],
+    highlights: [
+      'Rebuilt verb-first Arabic news syntax and dual verb forms such as يأملان and حذرا into natural subject-first Malay and English.',
+      'Restructured nationality nouns such as الأميركيان and البريطاني into "The two Americans … along with British Demis Hassabis" and "kedua-dua dari Amerika".',
+      'Glossed computational biology as "biologi komputasi (Bioinformatik)" for Malay readers less familiar with the term.',
+      'Kept scientific terms and proper nouns consistent across both targets: protein structures, AlphaFold 2, Google DeepMind.',
+    ],
+    accent: 'violet',
+    translation: nobelChemistry2024,
   },
 ];
 

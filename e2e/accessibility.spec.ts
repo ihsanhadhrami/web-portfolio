@@ -12,6 +12,7 @@ const PAGES = [
   '/',
   '/projects',
   '/projects/focus-system',
+  '/projects/nobel-chemistry-2024-translation',
   '/articles',
   '/articles/how-machines-learn-to-read-arabic',
   '/articles/the-invisible-glue-why-apis-run-everything',
