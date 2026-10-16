@@ -18,7 +18,6 @@ export const projects: readonly Project[] = [
     category: 'Web App',
     year: 2025,
     role: 'Solo Developer',
-    featured: true,
     tech: [
       'React',
       'TypeScript',
@@ -48,7 +47,6 @@ export const projects: readonly Project[] = [
     category: 'Web App',
     year: 2026,
     role: 'Solo Developer',
-    featured: false,
     tech: [
       'HTML',
       'CSS',
@@ -79,7 +77,6 @@ export const projects: readonly Project[] = [
     category: 'Automation',
     year: 2026,
     role: 'Solo Developer',
-    featured: false,
     tech: ['Python', 'Selenium', 'Pandas', 'openpyxl'],
     highlights: [
       'Turns a 2-3 hour manual search into a run that finishes in minutes.',
@@ -101,7 +98,6 @@ export const projects: readonly Project[] = [
     category: 'Automation',
     year: 2026,
     role: 'Solo Developer',
-    featured: false,
     tech: ['Python', 'Pillow', 'NumPy'],
     highlights: [
       'Non-destructive sequential pipeline: resize → adjustments → watermark → optimized output.',
@@ -123,7 +119,6 @@ export const projects: readonly Project[] = [
     category: 'Automation',
     year: 2026,
     role: 'Solo Developer',
-    featured: false,
     tech: ['Python', 'OpenRouter API', 'Hugging Face', 'SMTP', 'pytest'],
     highlights: [
       'Validates CSV input and fails fast on invalid dates or non-numeric metrics before a report ever goes out.',
@@ -147,7 +142,6 @@ export const projects: readonly Project[] = [
     category: 'Translation',
     year: 2026,
     role: 'Translator',
-    featured: false,
     tech: ['Arabic → Malay', 'Arabic → English'],
     highlights: [
       'Rebuilt verb-first Arabic news syntax and dual verb forms such as يأملان and حذرا into natural subject-first Malay and English.',
@@ -160,9 +154,6 @@ export const projects: readonly Project[] = [
     translation: nobelChemistry2024,
   },
 ];
-
-/** Convenience selectors kept beside the data for reuse across views. */
-export const featuredProjects = projects.filter((p) => p.featured);
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

@@ -8,15 +8,9 @@ import { cn } from '@/lib/utils';
 interface ProjectCardProps {
   project: Project;
   className?: string;
-  /** Featured cards get a larger cover and more prominent type. */
-  featured?: boolean;
 }
 
-export function ProjectCard({
-  project,
-  className,
-  featured = false,
-}: ProjectCardProps) {
+export function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <Link
       to={`/projects/${project.slug}`}
@@ -26,12 +20,7 @@ export function ProjectCard({
         className,
       )}
     >
-      <div
-        className={cn(
-          'relative overflow-hidden',
-          featured ? 'aspect-[16/10]' : 'aspect-[16/11]',
-        )}
-      >
+      <div className="relative aspect-[16/11] overflow-hidden">
         <ProjectCover
           title={project.title}
           accent={project.accent}
@@ -50,12 +39,7 @@ export function ProjectCard({
         </div>
 
         <div className="flex items-start justify-between gap-3">
-          <h3
-            className={cn(
-              'font-semibold tracking-tight',
-              featured ? 'text-xl' : 'text-lg',
-            )}
-          >
+          <h3 className="text-lg font-semibold tracking-tight">
             {project.title}
           </h3>
           <ArrowUpRight
@@ -69,7 +53,7 @@ export function ProjectCard({
         </p>
 
         <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
-          {project.tech.slice(0, featured ? 5 : 3).map((tech) => (
+          {project.tech.slice(0, 3).map((tech) => (
             <span
               key={tech}
               className="rounded-md bg-secondary/60 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"

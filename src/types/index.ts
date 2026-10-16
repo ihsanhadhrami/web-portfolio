@@ -51,8 +51,6 @@ export interface Project {
   readonly category: ProjectCategory;
   readonly year: number;
   readonly role: string;
-  /** Rendered on the home page when true. */
-  readonly featured: boolean;
   readonly tech: readonly string[];
   readonly highlights: readonly string[];
   readonly liveUrl?: string;
