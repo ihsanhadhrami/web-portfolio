@@ -39,6 +39,37 @@ export const projects: readonly Project[] = [
     accent: 'emerald',
   },
   {
+    slug: 'zikr',
+    title: 'ZIKR',
+    tagline:
+      'A morning and evening adhkar companion: one dhikr at a time, with a tap counter.',
+    description:
+      'An installable web app for the morning and evening adhkar (Zikir Pagi & Petang). It shows one dhikr at a time in Arabic with a tasbih-style tap counter, switches between the morning and evening sets by time of day, and tracks streaks so the habit sticks. The interface is in Malay, it works offline, and everything stays on the device: no account, no server-side data.',
+    category: 'Web App',
+    year: 2026,
+    role: 'Solo Developer',
+    featured: false,
+    tech: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Service Worker',
+      'Web App Manifest',
+      'localStorage',
+      'Cloudflare Workers',
+    ],
+    highlights: [
+      'One dhikr per screen with a ring-shaped tap counter, swipe navigation, and optional auto-advance when the target count is reached.',
+      'Switches between the morning and evening sets automatically (morning runs 4 AM to 4 PM).',
+      'Offline-first PWA: a service worker caches the app shell, and it installs to the home screen on Android and iOS.',
+      'Tracks daily totals, current and best streaks, and a 7-day view, all stored locally in the browser.',
+      'Malay interface with Arabic texts set in Amiri, adjustable Arabic text size, three colour themes, and haptic feedback on each count.',
+    ],
+    liveUrl: 'https://zikr.ihsanhadhrami.com/',
+    cover: '/zikr-cover.png',
+    accent: 'violet',
+  },
+  {
     slug: 'job-listings-scraper',
     title: 'Job Listings Scraper',
     tagline:

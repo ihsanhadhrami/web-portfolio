@@ -58,7 +58,10 @@ test.describe('Project detail page', () => {
 
   test('"All projects" back link returns to the listing', async ({ page }) => {
     await page.goto('/projects/focus-system');
-    await page.getByRole('link', { name: 'All projects' }).click();
+    // A project with related work also has an "All projects" link in its
+    // "More … work" section, going to the same place. The back link is
+    // the first one on the page.
+    await page.getByRole('link', { name: 'All projects' }).first().click();
     await expect(page).toHaveURL(/\/projects$/);
   });
 
