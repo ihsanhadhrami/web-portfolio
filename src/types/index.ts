@@ -94,6 +94,42 @@ export interface SkillGroup {
   readonly skills: readonly Skill[];
 }
 
+/** Dates are ISO year-month (YYYY-MM), formatted at render time. */
+export interface Education {
+  readonly institution: string;
+  readonly qualification: string;
+  readonly location: string;
+  readonly start: string;
+  readonly end: string;
+  readonly grade?: string;
+}
+
+export interface Experience {
+  readonly role: string;
+  readonly organization: string;
+  /** e.g. "Apprenticeship", "Full-time". */
+  readonly type: string;
+  readonly location: string;
+  readonly start: string;
+  readonly end: string;
+  readonly summary: string;
+  readonly points: readonly string[];
+}
+
+export interface Certificate {
+  readonly title: string;
+  readonly issuer: string;
+  /** ISO year-month (YYYY-MM). */
+  readonly date: string;
+  /** Short qualifier shown under the issuer, e.g. "4-course specialization". */
+  readonly detail?: string;
+  /** Path under /public to a rendered image of the certificate. */
+  readonly image: string;
+  readonly credentialId?: string;
+  /** Public verification page, when the issuer provides one. */
+  readonly verifyUrl?: string;
+}
+
 /**
  * The two tracks the writing is split across. A recruiter scanning for
  * backend work and someone assessing Arabic NLP depth should each be able

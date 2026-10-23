@@ -18,6 +18,7 @@ const PAGES = [
   '/articles/the-invisible-glue-why-apis-run-everything',
   '/services',
   '/about',
+  '/about/background',
   '/contact',
 ];
 

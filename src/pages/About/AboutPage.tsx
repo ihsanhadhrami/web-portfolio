@@ -73,6 +73,12 @@ export default function AboutPage() {
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link to="/about/background">
+                  More about me
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
             </div>
           </Reveal>
 

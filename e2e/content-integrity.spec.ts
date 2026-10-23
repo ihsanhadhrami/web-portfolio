@@ -15,6 +15,7 @@ const PAGES = [
   '/articles/the-invisible-glue-why-apis-run-everything',
   '/services',
   '/about',
+  '/about/background',
   '/contact',
 ];
 
@@ -53,6 +54,10 @@ for (const path of PAGES) {
 test('internal links resolve without a 404 or error boundary', async ({
   page,
 }) => {
+  // Visits every page and then every unique internal link, one after
+  // another, so its run time grows with the site. The 30s default was
+  // outgrown once the background page added its links.
+  test.setTimeout(90_000);
   await page.goto('/');
   const hrefs = new Set<string>();
   for (const path of PAGES) {

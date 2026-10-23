@@ -17,6 +17,7 @@ const ArticleDetailsPage = lazy(
 );
 const ServicesPage = lazy(() => import('@/pages/Services/ServicesPage'));
 const AboutPage = lazy(() => import('@/pages/About/AboutPage'));
+const BackgroundPage = lazy(() => import('@/pages/About/BackgroundPage'));
 const ContactPage = lazy(() => import('@/pages/Contact/ContactPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFound/NotFoundPage'));
 
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: 'articles/:slug', element: <ArticleDetailsPage /> },
       { path: 'services', element: <ServicesPage /> },
       { path: 'about', element: <AboutPage /> },
+      { path: 'about/background', element: <BackgroundPage /> },
       { path: 'contact', element: <ContactPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],

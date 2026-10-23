@@ -10,6 +10,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: 'list',
+  // Every route is a lazy chunk, so many assertions first wait for the
+  // "Loading…" fallback to clear. With the full suite running in parallel
+  // that chunk load can exceed the 5s default and fail tests that have
+  // nothing to do with load speed. These tests check behaviour, not
+  // performance, so give each assertion more headroom.
+  expect: { timeout: 10_000 },
   use: {
     baseURL: 'http://localhost:4173',
     trace: 'retain-on-failure',
