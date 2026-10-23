@@ -28,7 +28,7 @@
   // dashboard. Secrets are separate and are NOT overwritten by a deploy:
   //   npx wrangler secret put RESEND_API_KEY
   "vars": {
-    "CONTACT_TO_EMAIL": "ihsan@ihsanhadhrami.com",
+    "CONTACT_TO_EMAIL": "ihadhrami20@gmail.com",
     "CONTACT_FROM_EMAIL": "hello@ihsanhadhrami.com"
   }
 }

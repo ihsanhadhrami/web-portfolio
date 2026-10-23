@@ -21,7 +21,7 @@ test('clicking the contact email copies it and confirms', async ({
   await page.goto('/contact');
 
   const emailLink = page.getByRole('link', {
-    name: /ihsanhadhrami\.com/,
+    name: /ihadhrami20@gmail\.com/,
   });
   await expect(emailLink).toHaveAttribute('href', /^mailto:/);
 
@@ -34,5 +34,5 @@ test('clicking the contact email copies it and confirms', async ({
 
   // The address actually landed on the clipboard.
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());
-  expect(clipboard).toContain('@ihsanhadhrami.com');
+  expect(clipboard).toBe('ihadhrami20@gmail.com');
 });

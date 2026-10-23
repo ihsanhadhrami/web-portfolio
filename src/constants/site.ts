@@ -24,7 +24,7 @@ export const SITE = {
     'I build AI applications with RAG and agentic AI, ship full-stack web apps and Python automation, and translate Arabic into Malay and English. Most of my work sits where language meets software.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
-  email: 'ihsan@ihsanhadhrami.com',
+  email: 'ihadhrami20@gmail.com',
   availability: 'Available for freelance & full-time work',
   /** Used as the home link in the minimal nav. */
   initials: 'IH',
@@ -37,7 +37,7 @@ export const SOCIAL_LINKS = [
     href: 'https://www.linkedin.com/in/ihsan-hadhrami-ab0368287',
     icon: 'Linkedin',
   },
-  { label: 'Email', href: 'mailto:ihsan@ihsanhadhrami.com', icon: 'Mail' },
+  { label: 'Email', href: `mailto:${SITE.email}`, icon: 'Mail' },
 ] as const;
 
 export const NAV_LINKS = [
