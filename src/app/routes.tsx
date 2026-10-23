@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { RootLayout } from '@/components/layout/root-layout';
 
 /**
@@ -16,7 +16,6 @@ const ArticleDetailsPage = lazy(
   () => import('@/pages/ArticleDetails/ArticleDetailsPage'),
 );
 const ServicesPage = lazy(() => import('@/pages/Services/ServicesPage'));
-const AboutPage = lazy(() => import('@/pages/About/AboutPage'));
 const BackgroundPage = lazy(() => import('@/pages/About/BackgroundPage'));
 const ContactPage = lazy(() => import('@/pages/Contact/ContactPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFound/NotFoundPage'));
@@ -32,7 +31,9 @@ export const router = createBrowserRouter([
       { path: 'articles', element: <ArticlesPage /> },
       { path: 'articles/:slug', element: <ArticleDetailsPage /> },
       { path: 'services', element: <ServicesPage /> },
-      { path: 'about', element: <AboutPage /> },
+      // The About page merged into the homepage's About section; old links
+      // and search results land there instead.
+      { path: 'about', element: <Navigate to="/#about" replace /> },
       { path: 'about/background', element: <BackgroundPage /> },
       { path: 'contact', element: <ContactPage /> },
       { path: '*', element: <NotFoundPage /> },

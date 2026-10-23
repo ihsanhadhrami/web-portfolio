@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { publishedArticles } from '@/data/articles';
 import { Reveal } from '@/components/animations/reveal';
@@ -41,6 +43,16 @@ export function AboutSection({ number, label }: AboutSectionProps) {
               that gap is the interesting part.
             </p>
           </div>
+          <Link
+            to="/about/background"
+            className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            More about me: education & certifications
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
         </Reveal>
 
         <Reveal

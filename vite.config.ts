@@ -14,7 +14,6 @@ const STATIC_ROUTES: ReadonlyArray<[path: string, priority: string]> = [
   ['/projects', '0.9'],
   ['/articles', '0.8'],
   ['/services', '0.8'],
-  ['/about', '0.7'],
   ['/about/background', '0.5'],
   ['/contact', '0.6'],
 ];

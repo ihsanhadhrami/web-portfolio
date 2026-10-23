@@ -51,7 +51,7 @@ test.describe('Mobile navigation menu', () => {
   }) => {
     // An inner route: the homepage renders its own section menu instead of
     // the global one (see home-snap.spec).
-    await page.goto('/about');
+    await page.goto('/services');
 
     const openButton = page.getByRole('button', { name: 'Open menu' });
     await expect(openButton).toBeVisible();
@@ -63,7 +63,7 @@ test.describe('Mobile navigation menu', () => {
     await expect(header.getByRole('link', { name: 'About' })).toBeVisible();
 
     await header.getByRole('link', { name: 'About' }).click();
-    await expect(page).toHaveURL(/\/about$/);
+    await expect(page).toHaveURL(/\/#about$/);
   });
 
   test('locks body scroll while open', async ({ page }) => {

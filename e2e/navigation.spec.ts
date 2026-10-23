@@ -15,7 +15,7 @@ const NAV_ROUTES = [
   { label: 'Projects', path: '/projects' },
   { label: 'Articles', path: '/articles' },
   { label: 'Services', path: '/services' },
-  { label: 'About', path: '/about' },
+  { label: 'About', path: '/#about' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -32,7 +32,7 @@ test.describe('Primary navigation', () => {
     test(`nav link "${route.label}" navigates to ${route.path}`, async ({
       page,
     }) => {
-      await page.goto('/about');
+      await page.goto('/services');
       await page
         .getByRole('navigation', { name: 'Primary' })
         .getByRole('link', { name: route.label, exact: true })
@@ -42,7 +42,7 @@ test.describe('Primary navigation', () => {
   }
 
   test('"Let\'s talk" CTA in navbar goes to /contact', async ({ page }) => {
-    await page.goto('/about');
+    await page.goto('/services');
     await page
       .getByRole('navigation', { name: 'Primary' })
       .getByRole('link', { name: "Let's talk" })
@@ -82,7 +82,7 @@ test.describe('Logo / brand mark', () => {
   test('clicking the logo from an inner page returns to home', async ({
     page,
   }) => {
-    await page.goto('/about');
+    await page.goto('/services');
     await page
       .getByRole('banner')
       .getByRole('link', { name: /reload home page/i })
@@ -95,7 +95,7 @@ test.describe('Footer', () => {
   test('renders navigation links and social links with valid hrefs', async ({
     page,
   }) => {
-    await page.goto('/about');
+    await page.goto('/services');
     const footer = page.getByRole('contentinfo');
     await expect(footer).toBeVisible();
 
@@ -112,7 +112,7 @@ test.describe('Footer', () => {
   });
 
   test('copyright line reflects the current site owner', async ({ page }) => {
-    await page.goto('/about');
+    await page.goto('/services');
     // Match the copyright line specifically (© … name), not the footer
     // logo wordmark which also contains the name.
     await expect(

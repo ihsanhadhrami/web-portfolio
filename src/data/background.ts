@@ -1,8 +1,9 @@
-import type { Certificate, Education, Experience } from '@/types';
+import type { Certificate, Education } from '@/types';
 
 /**
- * Background for /about/background. Facts here come from the certificates
- * themselves and from Ihsan's LinkedIn profile; nothing is inferred.
+ * Education and certificates for /about/background. Facts come from the
+ * certificates themselves and from Ihsan's LinkedIn profile; nothing is
+ * inferred. Work experience is deliberately left out: the projects show it.
  * Certificate images are rendered from the original PDFs into
  * /public/certificates.
  */
@@ -15,25 +16,6 @@ export const education: readonly Education[] = [
     start: '2019-09',
     end: '2023-06',
     grade: '3.56',
-  },
-];
-
-export const experience: readonly Experience[] = [
-  {
-    role: 'Digital Marketing Associate',
-    organization: 'Dattel Asia Group',
-    type: 'Apprenticeship',
-    location: 'Kuala Lumpur, Malaysia',
-    start: '2023-09',
-    end: '2023-12',
-    summary:
-      'A four-month, on-the-job digital marketing programme run by Khazanah Nasional in partnership with Dattel Asia.',
-    points: [
-      'Analysed consumer behaviour with proprietary tools to sharpen client targeting.',
-      'Worked hands-on with SEO and SEM, and on campaigns through Ohsemads.com.',
-      'Designed and built websites and landing pages on Wix.',
-      'Measured return on investment and prepared final performance reports.',
-    ],
   },
 ];
 

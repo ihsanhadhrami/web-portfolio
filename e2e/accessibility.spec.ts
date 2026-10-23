@@ -17,7 +17,6 @@ const PAGES = [
   '/articles/how-machines-learn-to-read-arabic',
   '/articles/the-invisible-glue-why-apis-run-everything',
   '/services',
-  '/about',
   '/about/background',
   '/contact',
 ];

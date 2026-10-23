@@ -1,4 +1,5 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Seo } from '@/components/seo';
 import {
   HOME_SECTIONS,
@@ -101,6 +102,15 @@ export default function HomePage() {
       block: 'start',
     });
   }, []);
+
+  // Other pages link into a section with a hash (the nav's "About" goes
+  // to /#about). The sections live in a scroll container rather than the
+  // document, so the browser's own anchor jump never reaches them.
+  const { hash } = useLocation();
+  useEffect(() => {
+    const id = hash.slice(1);
+    if ((SECTION_IDS as readonly string[]).includes(id)) goToSection(id);
+  }, [hash, goToSection]);
 
   return (
     <>

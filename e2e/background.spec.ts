@@ -1,15 +1,39 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Background page', () => {
-  test('"More about me" on /about leads to the background page', async ({
+  test('"More about me" in the home About section leads here', async ({
     page,
   }) => {
-    await page.goto('/about');
-    await page.getByRole('link', { name: 'More about me' }).click();
+    await page.goto('/#about');
+    await page
+      .locator('#about')
+      .getByRole('link', { name: /More about me/ })
+      .click();
     await expect(page).toHaveURL(/\/about\/background$/);
     await expect(
       page.getByRole('heading', { name: 'Certifications', exact: true }),
     ).toBeVisible();
+  });
+
+  test('"Back to About" returns to the home About section', async ({
+    page,
+  }) => {
+    await page.goto('/about/background');
+    await page.getByRole('link', { name: 'Back to About' }).click();
+    await expect(page).toHaveURL(/\/#about$/);
+    await expect(
+      page.getByRole('heading', { name: 'Where language meets software.' }),
+    ).toBeInViewport();
+  });
+
+  test('the old /about URL redirects to the home About section', async ({
+    page,
+  }) => {
+    await page.goto('/about');
+    await expect(page).toHaveURL(/\/#about$/);
+    await expect(
+      page.getByRole('heading', { name: 'Where language meets software.' }),
+    ).toBeInViewport();
   });
 
   test('every certificate opens full size and closes again', async ({

@@ -10,7 +10,7 @@ const PAGES: { path: string; titleContains: string }[] = [
   { path: '/projects', titleContains: 'Projects' },
   { path: '/articles', titleContains: 'Articles' },
   { path: '/services', titleContains: 'Services' },
-  { path: '/about', titleContains: 'About' },
+  { path: '/about/background', titleContains: 'Education' },
   { path: '/contact', titleContains: 'Contact' },
 ];
 

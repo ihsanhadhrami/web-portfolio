@@ -104,18 +104,6 @@ export interface Education {
   readonly grade?: string;
 }
 
-export interface Experience {
-  readonly role: string;
-  readonly organization: string;
-  /** e.g. "Apprenticeship", "Full-time". */
-  readonly type: string;
-  readonly location: string;
-  readonly start: string;
-  readonly end: string;
-  readonly summary: string;
-  readonly points: readonly string[];
-}
-
 export interface Certificate {
   readonly title: string;
   readonly issuer: string;
