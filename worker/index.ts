@@ -26,6 +26,8 @@ interface Env {
   CONTACT_TO_EMAIL?: string;
   /** Verified sender on your Resend domain. */
   CONTACT_FROM_EMAIL?: string;
+  /** Per-IP throttle declared under `ratelimits` in wrangler.jsonc. */
+  CONTACT_LIMITER: RateLimit;
 }
 
 interface ContactPayload {
@@ -76,6 +78,22 @@ function validate(
 }
 
 async function handleContact(request: Request, env: Env): Promise<Response> {
+  // Requiring JSON forces a CORS preflight for cross-origin callers. This
+  // Worker answers OPTIONS with a 405 and no CORS headers, so other sites
+  // cannot make their visitors' browsers submit the form.
+  if (!request.headers.get('Content-Type')?.startsWith('application/json'))
+    return json({ ok: false, error: 'Unsupported content type.' }, 415);
+
+  // Each accepted request costs a Resend send, and the honeypot alone is
+  // trivially bypassed by a script that omits the field.
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+  const { success } = await env.CONTACT_LIMITER.limit({ key: ip });
+  if (!success)
+    return json(
+      { ok: false, error: 'Too many messages. Please try again shortly.' },
+      429,
+    );
+
   let raw: unknown;
   try {
     raw = await request.json();

@@ -118,6 +118,11 @@ touched by a deploy, which is why the API key must never appear in the file.
 For local runs, put all three in `.dev.vars` (gitignored) and use
 `npm run dev`.
 
+Each accepted request costs a Resend send, so the Worker rejects anything
+that is not `Content-Type: application/json` (415, which also blocks
+cross-origin submissions) and throttles each client IP to 3 messages per
+minute through the `CONTACT_LIMITER` rate-limiting binding (429).
+
 The form **never reports success unless the API confirms delivery** — it
 requires a JSON `{ ok: true }` response, so a missing key or misconfigured
 deploy surfaces a visible error rather than silently discarding enquiries.
