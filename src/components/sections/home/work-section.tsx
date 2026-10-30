@@ -10,6 +10,7 @@ import { projects } from '@/data/projects';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ProjectCover } from '@/components/cards/project-cover';
+import { ProjectStatus } from '@/components/cards/project-status';
 import { Reveal } from '@/components/animations/reveal';
 import { SnapSection } from './snap-section';
 
@@ -94,8 +95,9 @@ export function WorkSection({ number, label }: WorkSectionProps) {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Badge variant="muted">{project.category}</Badge>
+                    <ProjectStatus status={project.status} />
                     <span className="font-mono text-xs text-muted-foreground">
                       {project.year}
                     </span>

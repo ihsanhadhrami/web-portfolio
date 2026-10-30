@@ -14,6 +14,7 @@ import { Container } from '@/components/ui/container';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ProjectCover } from '@/components/cards/project-cover';
+import { ProjectStatus } from '@/components/cards/project-status';
 import { ProjectCard } from '@/components/cards/project-card';
 import { Reveal } from '@/components/animations/reveal';
 import { NotFoundBlock } from '@/components/sections/not-found-block';
@@ -93,6 +94,7 @@ export default function ProjectDetailsPage() {
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="accent">{project.category}</Badge>
               <Badge variant="muted">{project.year}</Badge>
+              <ProjectStatus status={project.status} />
             </div>
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">

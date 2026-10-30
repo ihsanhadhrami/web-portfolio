@@ -10,6 +10,66 @@ import { nobelChemistry2024 } from '../content/translations/nobel-chemistry-2024
  */
 export const projects: readonly Project[] = [
   {
+    slug: 'rasid',
+    title: 'Rāṣid',
+    tagline:
+      'An AI-assisted news-brief tool between Malay, English, and Arabic, with the human translator as final reviewer.',
+    description:
+      'Rāṣid (راصد, "the observer") drafts news briefs between Malay or English and Arabic, in both directions, then checks its own work before a human translator approves it. One LLM pass drafts the translation and a fact table; a separate reviewer pass compares source and translation sentence by sentence; and deterministic checks in code prove that every number and glossary term made it across. The AI drafts and checks. The human decides.',
+    category: 'AI App',
+    year: 2026,
+    role: 'Solo Developer',
+    status: 'In progress · evaluation',
+    tech: [
+      'Python',
+      'Claude API',
+      'Pydantic',
+      'Gradio',
+      'SQLite',
+      'rapidfuzz',
+      'sacrebleu',
+      'pytest',
+    ],
+    highlights: [
+      'Works in both directions: Malay and English into Arabic, and Arabic back into Malay or English, each in its own house style.',
+      'Deterministic checks with no LLM involved: numbers compared across Arabic-Indic and Western digits, glossary terms enforced both ways, plus length-ratio and fact-table cross-checks.',
+      'An independent reviewer pass, separate from drafting, flags omissions, additions, and mistranslations by severity.',
+      'Human approval is enforced in the UI: nothing saves without a human-written source assessment, and every run logs review time and edit rate.',
+      'Currently in evaluation on public news only: chrF against human gold translations, catch rate on planted errors, and review time against a manual baseline.',
+    ],
+    accent: 'rose',
+  },
+  {
+    slug: 'musaid',
+    title: 'Musaid',
+    tagline:
+      'Cross-lingual support RAG: Arabic and English questions answered from an English-only knowledge base.',
+    description:
+      'Musaid (مساعد, "assistant") is a customer-support RAG system that answers questions in Arabic, including Modern Standard Arabic, Gulf, Levantine, and Egyptian dialects, code-switched text, and Arabizi, as well as English, all from a knowledge base written only in English. It ships with a public benchmark, so retrieval quality and answer faithfulness are measured rather than claimed.',
+    category: 'AI App',
+    year: 2026,
+    role: 'Solo Developer',
+    status: 'In progress · early build',
+    tech: [
+      'Python',
+      'PostgreSQL',
+      'pgvector',
+      'Langfuse',
+      'Docker',
+      'Pydantic',
+      'pytest',
+    ],
+    highlights: [
+      'Handles Arabic as people actually type it: Modern Standard Arabic, regional dialects, Arabic–English code-switching, and Arabizi (Arabic in Latin letters).',
+      'Designed around hybrid retrieval and reranking over pgvector in PostgreSQL.',
+      'LLM tracing and evaluation through self-hosted Langfuse, with every evaluation run saved as its own result file.',
+      'A public benchmark with measured retrieval and faithfulness scores, published as each phase ships.',
+      'Deliberately scoped: no fine-tuning, agents, or account actions, so retrieval quality stays the thing being measured.',
+    ],
+    repoUrl: 'https://github.com/ihsanhadhrami/musaid-crosslingual-rag',
+    accent: 'emerald',
+  },
+  {
     slug: 'focus-system',
     title: 'Focus System',
     tagline: 'A Pomodoro-style focus timer that turns intention into habit.',

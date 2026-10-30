@@ -5,6 +5,7 @@
  */
 
 export type ProjectCategory =
+  | 'AI App'
   | 'Web App'
   | 'Website'
   | 'Automation'
@@ -51,6 +52,11 @@ export interface Project {
   readonly category: ProjectCategory;
   readonly year: number;
   readonly role: string;
+  /**
+   * Set while a project is still being built, e.g. 'In progress · evaluation'.
+   * Shown as a label on its card and page; omit once it ships.
+   */
+  readonly status?: string;
   readonly tech: readonly string[];
   readonly highlights: readonly string[];
   readonly liveUrl?: string;

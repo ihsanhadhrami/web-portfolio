@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { ProjectCover } from './project-cover';
+import { ProjectStatus } from './project-status';
 import { cn } from '@/lib/utils';
 
 interface ProjectCardProps {
@@ -32,7 +33,10 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-center justify-between gap-3">
-          <Badge variant="muted">{project.category}</Badge>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant="muted">{project.category}</Badge>
+            <ProjectStatus status={project.status} />
+          </div>
           <span className="font-mono text-xs text-muted-foreground">
             {project.year}
           </span>
