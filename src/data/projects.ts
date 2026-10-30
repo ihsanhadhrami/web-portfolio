@@ -41,11 +41,11 @@ export const projects: readonly Project[] = [
   },
   {
     slug: 'musaid',
-    title: 'Musaid',
+    title: 'Musa’id',
     tagline:
       'Cross-lingual support RAG: Arabic and English questions answered from an English-only knowledge base.',
     description:
-      'Musaid (مساعد, "assistant") is a customer-support RAG system that answers questions in Arabic, including Modern Standard Arabic, Gulf, Levantine, and Egyptian dialects, code-switched text, and Arabizi, as well as English, all from a knowledge base written only in English. It ships with a public benchmark, so retrieval quality and answer faithfulness are measured rather than claimed.',
+      'Musa’id (مساعد, "assistant") is a customer-support RAG system that answers questions in Arabic, including Modern Standard Arabic, Gulf, Levantine, and Egyptian dialects, code-switched text, and Arabizi, as well as English, all from a knowledge base written only in English. It ships with a public benchmark, so retrieval quality and answer faithfulness are measured rather than claimed.',
     category: 'AI App',
     year: 2026,
     role: 'Solo Developer',
