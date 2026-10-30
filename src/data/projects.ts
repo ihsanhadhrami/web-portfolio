@@ -37,6 +37,7 @@ export const projects: readonly Project[] = [
       'Human approval is enforced in the UI: nothing saves without a human-written source assessment, and every run logs review time and edit rate.',
       'Currently in evaluation on public news only: chrF against human gold translations, catch rate on planted errors, and review time against a manual baseline.',
     ],
+    cover: '/rasid-cover.jpg',
     accent: 'rose',
   },
   {
@@ -67,6 +68,7 @@ export const projects: readonly Project[] = [
       'Deliberately scoped: no fine-tuning, agents, or account actions, so retrieval quality stays the thing being measured.',
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/musaid-crosslingual-rag',
+    cover: '/musaid-cover.png',
     accent: 'emerald',
   },
   {
