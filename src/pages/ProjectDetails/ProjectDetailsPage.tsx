@@ -1,5 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  ExternalLink,
+  Github,
+  PlayCircle,
+} from 'lucide-react';
 import { Seo } from '@/components/seo';
 import { SITE } from '@/constants/site';
 import { getProjectBySlug, projects } from '@/data/projects';
@@ -113,6 +119,14 @@ export default function ProjectDetailsPage() {
                   </a>
                 </Button>
               )}
+              {project.demoVideo && (
+                <Button asChild size="sm" variant="outline">
+                  <a href="#demo">
+                    <PlayCircle className="size-4" />
+                    Watch demo
+                  </a>
+                </Button>
+              )}
             </div>
           </Reveal>
 
@@ -163,6 +177,27 @@ export default function ProjectDetailsPage() {
                   ))}
                 </ul>
               </Reveal>
+
+              {project.demoVideo && (
+                <Reveal className="flex flex-col gap-4">
+                  <h2
+                    id="demo"
+                    className="scroll-mt-24 text-xl font-semibold tracking-tight"
+                  >
+                    Demo
+                  </h2>
+                  {/* preload="metadata" keeps the full file off the wire until play. */}
+                  <video
+                    src={project.demoVideo}
+                    poster={project.cover}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label={`${project.title} demo video`}
+                    className="aspect-video w-full rounded-2xl border border-border bg-black"
+                  />
+                </Reveal>
+              )}
             </div>
 
             {/* Meta sidebar */}

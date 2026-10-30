@@ -62,6 +62,8 @@ export interface Project {
    * screenshot exists yet. Ignored if `cover` is set.
    */
   readonly logo?: string;
+  /** Path to a self-hosted demo video, played inline on the detail page. */
+  readonly demoVideo?: string;
   /** Short accent used to tint the placeholder cover, e.g. 'violet'. */
   readonly accent?: string;
   /** Rendered side by side on the detail page for Translation projects. */

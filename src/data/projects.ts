@@ -86,6 +86,7 @@ export const projects: readonly Project[] = [
     ],
     repoUrl: 'https://github.com/ihsanhadhrami/web_scraping_python',
     cover: '/job-listings-scraper-cover.jpg',
+    demoVideo: '/jobs-en.mp4',
     accent: 'blue',
   },
   {
