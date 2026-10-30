@@ -18,6 +18,7 @@ import { ProjectStatus } from '@/components/cards/project-status';
 import { ProjectCard } from '@/components/cards/project-card';
 import { Reveal } from '@/components/animations/reveal';
 import { NotFoundBlock } from '@/components/sections/not-found-block';
+import { cn } from '@/lib/utils';
 import { TranslationSample } from '@/components/sections/translation-sample';
 
 export default function ProjectDetailsPage() {
@@ -132,15 +133,25 @@ export default function ProjectDetailsPage() {
             </div>
           </Reveal>
 
+          {/*
+            Cards crop covers to a uniform shape, but here the cover is shown
+            whole: several are infographics with text near the edges, which a
+            fixed 16:9 frame would cut off. Only the placeholder, which has no
+            shape of its own, keeps the 16:9 frame.
+          */}
           <Reveal
             delay={0.1}
-            className="mt-12 aspect-[16/9] overflow-hidden rounded-2xl border border-border"
+            className={cn(
+              'mt-12 overflow-hidden rounded-2xl border border-border',
+              !project.cover && 'aspect-[16/9]',
+            )}
           >
             <ProjectCover
               title={project.title}
               accent={project.accent}
               src={project.cover}
               logo={project.logo}
+              className={project.cover ? 'h-auto' : undefined}
             />
           </Reveal>
         </Container>
