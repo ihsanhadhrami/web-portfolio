@@ -152,27 +152,6 @@ export const projects: readonly Project[] = [
     accent: 'blue',
   },
   {
-    slug: 'image-automation-engine',
-    title: 'Image Automation Engine',
-    tagline:
-      'Batch image processing that applies Lightroom-style edits consistently at scale.',
-    description:
-      'A batch image processing engine that applies iPhone/Lightroom-style adjustments — exposure, contrast, saturation, highlights, shadows, and sharpness — across entire folders of images. Built for automation, consistency, and production readiness rather than manual one-by-one editing, with e-commerce product shots, marketing assets, and web image optimization as the target workloads.',
-    category: 'Automation',
-    year: 2026,
-    role: 'Solo Developer',
-    tech: ['Python', 'Pillow', 'NumPy'],
-    highlights: [
-      'Non-destructive sequential pipeline: resize → adjustments → watermark → optimized output.',
-      'Gamma-based highlight and shadow recovery gives natural tone mapping without harsh clipping.',
-      'Config-driven adjustment values, normalized to prevent over-processing and visual artifacts.',
-      'Fault-tolerant batch — a single failed image is logged and never stops the run.',
-    ],
-    repoUrl: 'https://github.com/ihsanhadhrami/Image_Automation_Tool-Python',
-    cover: '/image-automation-engine-cover.jpg',
-    accent: 'amber',
-  },
-  {
     slug: 'ai-business-reports',
     title: 'AI Business Report Generator',
     tagline:

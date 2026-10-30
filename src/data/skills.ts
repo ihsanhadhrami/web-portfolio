@@ -51,7 +51,6 @@ export const skillGroups: readonly SkillGroup[] = [
       { name: 'Selenium', brand: 'selenium' },
       { name: 'pandas', brand: 'pandas' },
       { name: 'NumPy', brand: 'numpy' },
-      { name: 'Pillow' },
       { name: 'pytest', brand: 'pytest' },
       { name: 'Scheduled jobs' },
       { name: 'Email pipelines' },

@@ -106,6 +106,10 @@ test.describe('Article detail page', () => {
 
   test('footnote markers jump to their reference', async ({ page }) => {
     await page.goto(SLUG);
+    // Let web fonts finish first. Under parallel load they can swap in
+    // after the jump, reflow the paragraphs above, and push the target
+    // back out of view, which reads as a failed jump.
+    await page.evaluate(() => document.fonts.ready);
     await page.getByRole('link', { name: 'Reference 4' }).first().click();
     await expect(page.locator('#fn-4')).toBeInViewport({ timeout: 10_000 });
   });
