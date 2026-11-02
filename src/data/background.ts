@@ -22,6 +22,14 @@ export const education: readonly Education[] = [
 /** Newest first. */
 export const certificates: readonly Certificate[] = [
   {
+    title: 'Build RAG Applications: Get Started',
+    issuer: 'IBM, via Coursera',
+    date: '2026-11',
+    detail: '6 hours',
+    image: '/certificates/ibm-build-rag-applications.jpg',
+    verifyUrl: 'https://coursera.org/verify/YKR3O166XGXA',
+  },
+  {
     title: 'Google Prompting Essentials',
     issuer: 'Google, via Coursera',
     date: '2026-06',

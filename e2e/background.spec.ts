@@ -41,7 +41,7 @@ test.describe('Background page', () => {
   }) => {
     await page.goto('/about/background');
     const buttons = page.getByRole('button', { name: /^View certificate:/ });
-    await expect(buttons).toHaveCount(5);
+    await expect(buttons).toHaveCount(6);
 
     await buttons.first().click();
     const dialog = page.locator('dialog[open]');
@@ -61,13 +61,14 @@ test.describe('Background page', () => {
     await expect(page.locator('dialog[open]')).toHaveCount(0);
   });
 
-  test('the Coursera certificate links to its verification page', async ({
+  test('Coursera certificates link to their verification pages', async ({
     page,
   }) => {
     await page.goto('/about/background');
-    await expect(page.getByRole('link', { name: 'Verify' })).toHaveAttribute(
-      'href',
-      /coursera\.org\/verify\//,
-    );
+    const verifyLinks = page.getByRole('link', { name: 'Verify' });
+    await expect(verifyLinks).toHaveCount(2);
+    for (const link of await verifyLinks.all()) {
+      await expect(link).toHaveAttribute('href', /coursera\.org\/verify\//);
+    }
   });
 });
