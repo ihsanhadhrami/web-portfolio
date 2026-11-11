@@ -89,8 +89,6 @@
     'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Syne', 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
-  /* Only fetched when Arabic glyphs render (Google Fonts unicode-range). */
-  --font-arabic: 'Noto Naskh Arabic', 'Segoe UI', 'Geeza Pro', serif;
 
   /* Fluid display type used by hero / section headings */
   --text-display: clamp(2.75rem, 1.6rem + 5.2vw, 5.5rem);

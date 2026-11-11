@@ -5,7 +5,6 @@ import { SITE } from '@/constants/site';
 import { Button } from '@/components/ui/button';
 import { fadeUp, staggerContainer } from '@/lib/motion';
 import { SnapSection } from './snap-section';
-import { HeroTranslationCard } from './hero-translation-card';
 
 interface HeroSectionProps {
   onNavigate: (id: string) => void;
@@ -23,55 +22,51 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         className="bg-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-2/3"
       />
 
-      <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_auto] xl:gap-20">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="flex max-w-4xl flex-col"
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        className="flex max-w-4xl flex-col"
+      >
+        <motion.h1
+          variants={fadeUp}
+          className="text-display font-display font-bold text-balance"
         >
-          <motion.h1
-            variants={fadeUp}
-            className="text-display font-display font-bold text-balance"
-          >
-            {SITE.name}
-          </motion.h1>
+          {SITE.name}
+        </motion.h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
-          >
-            {SITE.role}. {SITE.focus}
-          </motion.p>
+        <motion.p
+          variants={fadeUp}
+          className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+        >
+          {SITE.role}. {SITE.focus}
+        </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-col gap-3 sm:flex-row"
+        <motion.div
+          variants={fadeUp}
+          className="mt-10 flex flex-col gap-3 sm:flex-row"
+        >
+          <Button
+            size="lg"
+            className="w-full sm:w-auto"
+            onClick={() => onNavigate('work')}
           >
-            <Button
-              size="lg"
-              className="w-full sm:w-auto"
-              onClick={() => onNavigate('work')}
-            >
-              View work
-              <ArrowDown className="size-4" />
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto"
-            >
-              <Link to="/articles">
-                Read articles
-                <ArrowUpRight className="size-4" />
-              </Link>
-            </Button>
-          </motion.div>
+            View work
+            <ArrowDown className="size-4" />
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto"
+          >
+            <Link to="/articles">
+              Read articles
+              <ArrowUpRight className="size-4" />
+            </Link>
+          </Button>
         </motion.div>
-
-        <HeroTranslationCard />
-      </div>
+      </motion.div>
 
       {/*
         Kept despite being a pattern usually worth cutting: with mandatory
