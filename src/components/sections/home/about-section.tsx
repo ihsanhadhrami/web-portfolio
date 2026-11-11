@@ -55,23 +55,32 @@ export function AboutSection({ number, label }: AboutSectionProps) {
           </Link>
         </Reveal>
 
-        <Reveal
-          delay={0.1}
-          className="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-1"
-        >
-          {STATS.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col gap-1 bg-card p-4 sm:p-6"
-            >
-              <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-                {stat.value}
-              </span>
-              <span className="text-xs text-muted-foreground sm:text-sm">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+        <Reveal delay={0.1} className="flex flex-col gap-4">
+          {/* Explicit size reserves the box before load, so nothing shifts. */}
+          <img
+            src="/profile.jpg"
+            alt="Ihsan Hadhrami"
+            width={1200}
+            height={1005}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[6/5] w-full rounded-2xl border border-border object-cover"
+          />
+          <div className="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border bg-border">
+            {STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col gap-1 bg-card p-4 sm:p-6"
+              >
+                <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+                  {stat.value}
+                </span>
+                <span className="text-xs text-muted-foreground sm:text-sm">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </div>
     </SnapSection>
