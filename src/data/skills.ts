@@ -2,7 +2,7 @@ import type { SkillGroup } from '@/types';
 
 /**
  * One group per side of the work, in the same order the bio names them:
- * AI applications, full-stack web, Python automation, then language and
+ * AI applications, web development, Python automation, then language and
  * translation. Tools are only listed when a project or real work backs
  * them. The AI group's stack (LangChain, ChromaDB, watsonx.ai, Sentence
  * Transformers) is what Ihsan builds RAG with today, through IBM's
@@ -29,7 +29,7 @@ export const skillGroups: readonly SkillGroup[] = [
     ],
   },
   {
-    category: 'Full-Stack Web',
+    category: 'Web Development',
     icon: 'LayoutDashboard',
     skills: [
       { name: 'React', brand: 'react' },

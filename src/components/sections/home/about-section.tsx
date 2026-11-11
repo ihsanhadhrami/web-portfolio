@@ -36,11 +36,11 @@ export function AboutSection({ number, label }: AboutSectionProps) {
               own documents, and writing about how models read Arabic.
             </p>
             <p>
-              I also ship full-stack web apps and Python automation that turns
-              hours of manual work into minutes, and I translate Arabic into
-              Malay and English. Working across three languages is why Arabic is
-              where my AI work focuses: English-first tooling breaks on it, and
-              that gap is the interesting part.
+              I also ship web apps and Python automation that turns hours of
+              manual work into minutes, and I translate Arabic into Malay and
+              English. Working across three languages is why Arabic is where my
+              AI work focuses: English-first tooling breaks on it, and that gap
+              is the interesting part.
             </p>
           </div>
           <Link

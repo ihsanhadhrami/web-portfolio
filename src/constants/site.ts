@@ -18,10 +18,10 @@ export const SITE = {
    */
   role: 'AI Developer & Arabic Translator',
   shortBio:
-    'AI developer and Arabic translator. I build RAG and agentic AI apps, full-stack web apps, and Python automation, and translate Arabic into Malay and English.',
+    'AI developer and Arabic translator. I build RAG and agentic AI apps, web apps, and Python automation, and translate Arabic into Malay and English.',
   /** Hero sub-line. Every side of the work, held together by one thread. */
   focus:
-    'I build AI applications with RAG and agentic AI, ship full-stack web apps and Python automation, and translate Arabic into Malay and English. Most of my work sits where language meets software.',
+    'I build AI applications with RAG and agentic AI, ship web apps and Python automation, and translate Arabic into Malay and English. Most of my work sits where language meets software.',
   url: import.meta.env.VITE_SITE_URL ?? 'https://ihsanhadhrami.com',
   location: 'Remote · Available worldwide',
   email: 'ihadhrami20@gmail.com',
